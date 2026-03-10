@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MANDEM SHOP - Boutique Streetwear</title>
+  <meta name="description" content="MANDEM SHOP: boutique streetwear à Dakar. Paiement sécurisé PayTech, livraison rapide." />
+  <meta property="og:title" content="MANDEM SHOP" />
+  <meta property="og:description" content="Streetwear premium - Dakar & diaspora." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="images/hoodie.jpg" />
+  <meta property="og:url" content="https://mandemshop.com/" />
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RYL2JK73EY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-RYL2JK73EY");
+  </script>
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#e63946" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #000000;
+      --text: #f5f5f5;
+      --muted: #aaaaaa;
+      --line: #333333;
+      --hover: #e0e0e0;
+      --promo: #6a1a1a;
+    }
+    html, body { background: var(--bg); color: var(--text); font-family: Inter, system-ui, sans-serif; }
+    body {
+      background-color: #000;
+      background-image: url("images/bg-mandem.png");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 88vw;
+      background-size: min(90vw, 980px);
+      background-attachment: scroll;
+      background-blend-mode: multiply;
+      background-color: rgba(0, 0, 0, 0.65);
+    }
+    .title-font { font-family: "Playfair Display", serif; }
+    .card-hover { transition: transform .25s ease, box-shadow .25s ease; }
+    .card-hover:hover { transform: scale(1.015); box-shadow: 0 0 0 1px #fff2, 0 10px 30px #ffffff1a; }
+    .drawer-open { transform: translateX(0) !important; }
+    .overlay-show { opacity: 1 !important; visibility: visible !important; }
+    #toast { transition: opacity .25s ease, transform .25s ease; }
+    #toast.show { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body class="bg-black text-white">
+
+  <!-- Navbar -->
+  <header class="fixed top-0 left-0 right-0 z-50 border-b border-[#222] bg-black/95 backdrop-blur">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between relative">
+      <button id="mobileMenuBtn" class="md:hidden border border-[#333] px-3 py-1.5 text-sm hover:bg-white hover:text-black transition" aria-label="Ouvrir le menu">
+        Menu
+      </button>
+      <nav class="hidden md:flex items-center gap-6 text-sm text-[#cccccc]">
+        <a href="#accueil" class="hover:text-white">Accueil</a>
+        <a href="#vetements" class="hover:text-white">Vêtements</a>
+        <a href="#chaussures" class="hover:text-white">Chaussures</a>
+        <a href="#sacs" class="hover:text-white">Sacs</a>
+        <a href="#accessoires" class="hover:text-white">Accessoires</a>
+        <a href="#contact" class="hover:text-white">Contact</a>
+      </nav>
+      <a id="logoTrigger" href="#accueil" class="absolute left-1/2 -translate-x-1/2">
+        <video class="h-14 md:h-16 w-auto object-contain" autoplay muted loop playsinline preload="metadata" aria-label="Logo MANDEM SHOP">
+          <source src="images/logo.mp4" type="video/mp4">
+        </video>
+      </a>
+      <button id="openCartBtn" class="relative border border-[#333] px-3 py-1.5 text-sm hover:bg-white hover:text-black transition">
+        Panier
+        <span id="cartCount" class="absolute -top-2 -right-2 text-[10px] bg-[#8b0000] text-white rounded-full min-w-[18px] h-[18px] grid place-content-center px-1">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Menu mobile -->
+  <div id="mobileMenuOverlay" class="fixed inset-0 bg-black/70 z-[45] hidden"></div>
+  <aside id="mobileMenuPanel" class="fixed top-0 left-0 h-full w-72 bg-black border-r border-[#333] z-[46] transform -translate-x-full transition duration-300">
+    <div class="h-16 px-4 flex items-center justify-between border-b border-[#222]">
+      <span class="text-sm text-[#aaa]">Menu</span>
+      <button id="mobileMenuClose" class="text-[#aaa] hover:text-white">✕</button>
+    </div>
+    <nav class="p-4 flex flex-col gap-3 text-sm text-[#cccccc]">
+      <a data-mobile-link href="#accueil" class="hover:text-white">Accueil</a>
+      <a data-mobile-link href="#vetements" class="hover:text-white">Vêtements</a>
+      <a data-mobile-link href="#chaussures" class="hover:text-white">Chaussures</a>
+      <a data-mobile-link href="#sacs" class="hover:text-white">Sacs</a>
+      <a data-mobile-link href="#accessoires" class="hover:text-white">Accessoires</a>
+      <a data-mobile-link href="#contact" class="hover:text-white">Contact</a>
+    </nav>
+  </aside>
+
+  <main class="pt-16">
+    <!-- Hero -->
+    <section id="accueil" class="relative min-h-[70vh] md:min-h-[85vh] flex items-center">
+      <img src="images/bg-mandem.png" alt="Background MANDEM SHOP" class="absolute inset-0 w-full h-full object-contain scale-110 opacity-55 pointer-events-none select-none">
+      <div class="absolute inset-0 bg-black/40"></div>
+      <div class="relative max-w-7xl mx-auto px-4 py-20 text-center md:text-left">
+        <p class="text-[#bbbbbb] uppercase tracking-[0.25em] text-xs mb-4">Collection 2026</p>
+        <h1 class="title-font text-4xl md:text-6xl lg:text-7xl leading-tight max-w-4xl md:mx-0 mx-auto">MANDEM SHOP</h1>
+        <p class="text-[#cccccc] mt-5 max-w-2xl md:mx-0 mx-auto">Mode urbaine premium : la même qualité, juste des prix qui baissent.</p>
+        <a href="#vetements" class="inline-block mt-8 bg-white text-black px-6 py-3 font-semibold hover:bg-[#e0e0e0] transition w-full sm:w-auto">Découvrir</a>
+      </div>
+    </section>
+
+    <!-- Conteneur produits -->
+    <section class="max-w-7xl mx-auto px-4 py-12 md:py-16">
+      <div class="mb-8">
+        <label for="searchInput" class="block text-sm text-[#bbbbbb] mb-2">Rechercher un produit</label>
+        <input id="searchInput" type="search" placeholder="Ex: hoodie, sneakers, casquette..." class="w-full md:max-w-md bg-black border border-[#333] px-4 py-3 text-white placeholder:text-[#777] focus:outline-none focus:border-white">
+      </div>
+      <div id="sectionsContainer"></div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer id="contact" class="border-t border-[#222] py-10">
+    <div class="max-w-7xl mx-auto px-4 grid gap-6 md:grid-cols-3 text-sm">
+      <div>
+        <h3 class="font-bold mb-2">MANDEM SHOP</h3>
+        <p class="text-[#aaaaaa]">Streetwear minimaliste. Dakar, Sénégal.</p>
+      </div>
+      <div>
+        <h3 class="font-bold mb-2">Contact</h3>
+        <p class="text-[#aaaaaa]">WhatsApp: +221 77 511 12 80</p>
+        <p class="text-[#aaaaaa]">Tel: +221 77 511 12 80</p>
+        <button id="enableNotifBtn" class="mt-3 text-xs border border-[#333] px-3 py-2 hover:bg-white hover:text-black transition">Activer notifications commandes</button>
+        <p id="notifStatus" class="text-[11px] text-[#888] mt-2">Notifications navigateur non activées</p>
+      </div>
+      <div>
+        <h3 class="font-bold mb-2">Réseaux</h3>
+        <div class="flex flex-wrap gap-3 text-[#cccccc]">
+          <a href="https://www.instagram.com/mandem.sn?igsh=MTk4YWN0Z2ZsN2Vjdw%3D%3D" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 border border-[#333] px-3 py-2 hover:bg-white hover:text-black transition">
+            <svg viewBox="0 0 24 24" class="w-4 h-4 fill-current" aria-hidden="true">
+              <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5a4.25 4.25 0 0 0 4.25 4.25h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5a4.25 4.25 0 0 0-4.25-4.25h-8.5Zm9.88 1.87a1.12 1.12 0 1 1 0 2.25 1.12 1.12 0 0 1 0-2.25ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"/>
+            </svg>
+            <span>Instagram</span>
+          </a>
+          <a href="https://snapchat.com/t/NrWyidui" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 border border-[#333] px-3 py-2 hover:bg-white hover:text-black transition">
+            <svg viewBox="0 0 24 24" class="w-4 h-4 fill-current" aria-hidden="true">
+              <path d="M12 2.5c3.14 0 5.5 2.3 5.5 5.62v2.01c0 .5.17.99.49 1.37l.45.54c.53.64.2 1.6-.58 1.82l-1.31.38a.8.8 0 0 0-.57.72c-.08 1.4-.98 2.2-2.43 2.2h-2c-1.45 0-2.35-.8-2.43-2.2a.8.8 0 0 0-.57-.72l-1.31-.38c-.78-.22-1.11-1.18-.58-1.82l.45-.54c.32-.38.49-.87.49-1.37V8.12C6.5 4.8 8.86 2.5 12 2.5Zm0 16.44c1.47 0 2.66.68 2.66 1.53S13.47 22 12 22s-2.66-.68-2.66-1.53 1.19-1.53 2.66-1.53Z"/>
+            </svg>
+            <span>Snapchat</span>
+          </a>
+          <a href="https://www.tiktok.com/@mandem.sn?_r=1&_t=ZN-94CbVu4k8ak" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 border border-[#333] px-3 py-2 hover:bg-white hover:text-black transition">
+            <svg viewBox="0 0 24 24" class="w-4 h-4 fill-current" aria-hidden="true">
+              <path d="M14.5 3c.3 2.1 1.5 3.4 3.5 3.8v2.5a6.8 6.8 0 0 1-3.5-1.1v6.1a5.3 5.3 0 1 1-5.3-5.3c.3 0 .6 0 .9.1v2.6a2.7 2.7 0 0 0-.9-.15 2.75 2.75 0 1 0 2.75 2.75V3h2.55Z"/>
+            </svg>
+            <span>TikTok</span>
+          </a>
+        </div>
+        <div class="mt-3 flex flex-wrap gap-3 text-xs text-[#999]">
+          <a href="cgv.html" class="hover:text-white">CGV</a>
+          <a href="privacy.html" class="hover:text-white">Confidentialité</a>
+          <a href="shipping-returns.html" class="hover:text-white">Livraison/Retours</a>
+        </div>
+      </div>
+    </div>
+    <p class="text-center text-xs text-[#888] mt-8">© 2026 MANDEM SHOP. Tous droits réservés.</p>
+  </footer>
+
+  <!-- Overlay -->
+  <div id="overlay" class="fixed inset-0 bg-black/70 opacity-0 invisible transition z-[60]"></div>
+
+  <!-- Drawer Panier -->
+  <aside id="cartDrawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-black border-l border-[#333] z-[70] transform translate-x-full transition duration-300 flex flex-col">
+    <div class="p-4 border-b border-[#222] flex items-center justify-between">
+      <h2 class="text-lg font-bold">Votre panier</h2>
+      <button id="closeCartBtn" class="text-[#aaa] hover:text-white">Fermer ✕</button>
+    </div>
+    <div id="cartItems" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
+    <div class="border-t border-[#222] p-4 space-y-3">
+      <div class="flex justify-between">
+        <span class="text-[#cccccc]">Total</span>
+        <span id="cartTotal" class="font-bold">0 FCFA</span>
+      </div>
+      <button id="checkoutBtn" class="w-full bg-white text-black py-3 font-semibold hover:bg-[#e0e0e0] transition">Passer commande</button>
+    </div>
+  </aside>
+
+  <!-- Modal paiement -->
+  <div id="checkoutModal" class="fixed inset-0 z-[80] hidden items-center justify-center p-4">
+    <div class="absolute inset-0 bg-black/80"></div>
+    <div class="relative w-full max-w-lg bg-black border border-[#333] p-5">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-xl font-bold">Paiement</h3>
+        <button id="closeCheckout" class="text-[#aaa] hover:text-white">✕</button>
+      </div>
+      <p class="text-sm text-[#bbbbbb] mb-4">Choisissez votre mode de paiement pour finaliser la commande.</p>
+
+      <div class="space-y-3 mb-4">
+        <label class="flex items-start gap-3 border border-[#333] p-3 cursor-pointer">
+          <input type="radio" name="paymentMethod" value="paytech" checked class="mt-1">
+          <span>
+            <strong>PayTech.sn (Wave / Orange Money / Free Money)</strong><br>
+            <small class="text-[#aaaaaa]">Vous serez redirigé vers PayTech pour un paiement sécurisé.</small>
+          </span>
+        </label>
+        <label class="flex items-start gap-3 border border-[#333] p-3 cursor-pointer">
+          <input type="radio" name="paymentMethod" value="delivery" class="mt-1">
+          <span>
+            <strong>Paiement à la livraison</strong><br>
+            <small class="text-[#aaaaaa]">Réglez en cash à la réception.</small>
+          </span>
+        </label>
+      </div>
+
+      <div class="mb-4 space-y-2">
+        <label class="block text-sm text-[#cccccc] mb-1">Nom complet (obligatoire)</label>
+        <input id="customerNameInput" type="text" placeholder="Ex: Mamadou Diouf" required class="w-full bg-black border border-[#333] p-3 text-white focus:outline-none focus:border-white">
+        <label class="block text-sm text-[#cccccc] mb-1">Adresse de livraison (obligatoire)</label>
+        <input id="customerAddressInput" type="text" placeholder="Ex: Parcelles Assainies, Dakar" required class="w-full bg-black border border-[#333] p-3 text-white focus:outline-none focus:border-white">
+      </div>
+
+      <div id="phoneWrap" class="mb-4">
+        <label class="block text-sm text-[#cccccc] mb-2">Opérateur Mobile Money</label>
+        <div id="operatorWrap" class="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-3">
+          <label class="border border-[#333] p-2 text-sm cursor-pointer flex items-center gap-2">
+            <input type="radio" name="mmOperator" value="Wave" checked>
+            <img src="images/wave-logo.svg" alt="Wave" class="h-5 w-auto" />
+            <span>Wave</span>
+          </label>
+          <label class="border border-[#333] p-2 text-sm cursor-pointer flex items-center gap-2">
+            <input type="radio" name="mmOperator" value="Orange Money">
+            <img src="images/orange-money-logo.svg" alt="Orange Money" class="h-5 w-auto" />
+            <span>Orange Money</span>
+          </label>
+          <label class="border border-[#333] p-2 text-sm cursor-pointer flex items-center gap-2">
+            <input type="radio" name="mmOperator" value="Free Money">
+            <span class="inline-flex h-5 min-w-[34px] items-center justify-center rounded border border-[#555] px-1 text-[10px] font-semibold tracking-wide">FREE</span>
+            <span>Free Money</span>
+          </label>
+        </div>
+        <label class="block text-sm text-[#cccccc] mb-1">Numéro téléphone (obligatoire)</label>
+        <input id="phoneInput" type="tel" placeholder="Ex: 77 123 45 67" required class="w-full bg-black border border-[#333] p-3 text-white focus:outline-none focus:border-white">
+        <p id="phoneHelp" class="text-xs text-[#888] mt-1">Format Sénégal: 77/78/76/70/75 + 7 chiffres</p>
+      </div>
+
+      <p class="text-xs text-[#888] mb-4">Besoin d’aide ? WhatsApp: +221 77 511 12 80</p>
+      <button id="payBtn" class="w-full bg-white text-black py-3 font-semibold hover:bg-[#dddddd] transition">Payer avec PayTech</button>
+    </div>
+  </div>
+
+  <!-- Modal aperçu produit -->
+  <div id="quickViewModal" class="fixed inset-0 z-[85] hidden items-center justify-center p-4">
+    <div id="quickViewBackdrop" class="absolute inset-0 bg-black/80"></div>
+    <div class="relative w-full max-w-2xl bg-black border border-[#333] p-4 md:p-5">
+      <button id="quickViewCloseBtn" class="absolute top-3 right-3 text-[#aaa] hover:text-white">✕</button>
+      <div class="grid md:grid-cols-2 gap-4">
+        <img id="quickViewImage" src="" alt="Aperçu produit" class="w-full h-72 object-cover border border-[#222]">
+        <div class="space-y-3">
+          <h3 id="quickViewName" class="text-xl md:text-2xl font-bold"></h3>
+          <p id="quickViewPrice" class="text-[#ddd]"></p>
+          <div id="quickViewColorsWrap" class="hidden">
+            <p class="text-sm text-[#bbb] mb-2">Couleur</p>
+            <div id="quickViewColors" class="flex flex-wrap gap-2"></div>
+          </div>
+          <div id="quickViewSizesWrap" class="hidden">
+            <p class="text-sm text-[#bbb] mb-2">Taille</p>
+            <div id="quickViewSizes" class="flex flex-wrap gap-2"></div>
+          </div>
+          <div id="quickViewThumbs" class="flex flex-wrap gap-2"></div>
+          <p id="quickViewMeta" class="text-sm text-[#aaa]"></p>
+          <div class="grid grid-cols-2 gap-2 pt-2">
+            <button id="quickViewAddBtn" class="w-full border border-[#333] text-white py-2 font-semibold hover:bg-white hover:text-black transition">Ajouter au panier</button>
+            <button id="quickViewOrderBtn" class="w-full bg-white text-black py-2 font-semibold hover:bg-[#e0e0e0] transition">Commander</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="fixed left-1/2 -translate-x-1/2 bottom-5 z-[90] opacity-0 translate-y-2 bg-white text-black text-sm px-4 py-2 border border-[#333]">
+    Notification
+  </div>
+
+  <script src="products.js"></script>
+  <script>
+    const PRODUCTS_STORAGE_KEY = "mandem_products";
+    const API_BASE = localStorage.getItem("mandem_api_base") || ((["localhost", "127.0.0.1"].includes(window.location.hostname)) ? "http://localhost:3000" : "");
+    const USE_BACKEND = Boolean(API_BASE);
+    const DEFAULT_PRODUCTS = window.MANDEM_PRODUCTS || [];
+    const BASE_CATEGORIES = ["Vêtements", "Chaussures", "Sacs", "Accessoires"];
+
+    function cloneDeep(data) {
+      return JSON.parse(JSON.stringify(data));
+    }
+
+    function loadProductsFromStorage() {
+      const raw = localStorage.getItem(PRODUCTS_STORAGE_KEY);
+      if (!raw) return cloneDeep(DEFAULT_PRODUCTS);
+      try {
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : cloneDeep(DEFAULT_PRODUCTS);
+      } catch {
+        return cloneDeep(DEFAULT_PRODUCTS);
+      }
+    }
+
+    async function fetchProductsFromApi() {
+      if (!USE_BACKEND) throw new Error("Backend désactivé");
+      const response = await fetch(`${API_BASE}/api/products`);
+      if (!response.ok) throw new Error("Impossible de charger les produits depuis l'API");
+      return response.json();
+    }
+
+    function generateOrderRef() {
+      const ts = Date.now().toString().slice(-7);
+      return `MS-LOCAL-${ts}`;
+    }
+
+    let products = [];
+
+    const sectionsContainer = document.getElementById("sectionsContainer");
+    const cartDrawer = document.getElementById("cartDrawer");
+    const overlay = document.getElementById("overlay");
+    const cartItemsEl = document.getElementById("cartItems");
+    const cartTotalEl = document.getElementById("cartTotal");
+    const cartCountEl = document.getElementById("cartCount");
+    const checkoutModal = document.getElementById("checkoutModal");
+    const toastEl = document.getElementById("toast");
+    const enableNotifBtn = document.getElementById("enableNotifBtn");
+    const notifStatus = document.getElementById("notifStatus");
+    const searchInput = document.getElementById("searchInput");
+    const logoTrigger = document.getElementById("logoTrigger");
+    const BUSINESS_WHATSAPP = "221775111280";
+    const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+    const mobileMenuOverlay = document.getElementById("mobileMenuOverlay");
+    const mobileMenuPanel = document.getElementById("mobileMenuPanel");
+    const mobileMenuClose = document.getElementById("mobileMenuClose");
+
+    let cart = JSON.parse(localStorage.getItem("nb_cart") || "[]");
+    let searchQuery = "";
+    let quickViewState = { product: null, color: "", size: "" };
+
+    const formatFCFA = (value) => `${value.toLocaleString("fr-FR")} FCFA`;
+
+    function getProductImage(product) {
+      if (product.images && product.images.length) return product.images[0];
+      return product.image || "";
+    }
+
+    function getImageForColor(product, color) {
+      if (!color) return getProductImage(product);
+      if (product.colorImages && product.colorImages[color]) return product.colorImages[color];
+      if (Array.isArray(product.colors) && Array.isArray(product.images)) {
+        const idx = product.colors.findIndex((c) => c === color);
+        if (idx >= 0 && product.images[idx]) return product.images[idx];
+      }
+      return getProductImage(product);
+    }
+
+    function getCategories() {
+      const productCategories = [...new Set(products.map((p) => p.category).filter(Boolean))];
+      const sorted = [...BASE_CATEGORIES];
+      productCategories.forEach((cat) => {
+        if (!sorted.includes(cat)) sorted.push(cat);
+      });
+      return sorted;
+    }
+
+    function persistProductsLocalOnly() {
+      localStorage.setItem(PRODUCTS_STORAGE_KEY, JSON.stringify(products));
+    }
+
+    function openMobileMenu() {
+      mobileMenuOverlay.classList.remove("hidden");
+      mobileMenuPanel.classList.remove("-translate-x-full");
+    }
+
+    function closeMobileMenu() {
+      mobileMenuOverlay.classList.add("hidden");
+      mobileMenuPanel.classList.add("-translate-x-full");
+    }
+
+
+    function renderProducts() {
+      const normalizedQuery = searchQuery.trim().toLowerCase();
+      const sectionsHtml = getCategories().map((cat) => {
+        const id = cat.toLowerCase().replace("ê", "e").replace("è", "e").replace("é", "e");
+        const list = products.filter((p) => {
+          if (p.category !== cat) return false;
+          if (!normalizedQuery) return true;
+          const text = `${p.name} ${p.category}`.toLowerCase();
+          return text.includes(normalizedQuery);
+        });
+
+        if (!list.length) return "";
+
+        return `
+          <section id="${id}" class="mb-14">
+            <h2 class="text-2xl md:text-3xl font-black mb-6">${cat}</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              ${list.map((p) => `
+                <article class="card-hover border border-[#222] bg-black overflow-hidden p-3">
+                  <div class="relative">
+                    <img src="${getProductImage(p)}" alt="${p.name}" data-preview-image="${p.id}" class="w-full h-64 object-cover cursor-pointer">
+                    ${p.badge ? `<span class="absolute top-3 left-3 text-xs px-2 py-1 ${p.badge === "Promo" ? "bg-[#6a1a1a]" : "bg-white text-black"}">${p.badge}</span>` : ""}
+                  </div>
+                  <h3 data-preview-name="${p.id}" class="mt-3 font-semibold cursor-pointer hover:text-[#ddd]">${p.name}</h3>
+                  <p class="text-[#cccccc] text-sm mt-1">${formatFCFA(p.price)}</p>
+
+                  <div class="mt-4 grid grid-cols-2 gap-2">
+                    <button data-add="${p.id}" class="w-full border border-[#333] text-white py-2 font-semibold hover:bg-white hover:text-black transition">Ajouter au panier</button>
+                    <button data-order="${p.id}" class="w-full bg-white text-black py-2 font-semibold hover:bg-[#e0e0e0] transition">Commander</button>
+                  </div>
+                </article>
+              `).join("")}
+            </div>
+          </section>
+        `;
+      }).join("");
+
+      sectionsContainer.innerHTML = sectionsHtml || `
+        <div class="border border-[#222] p-6 text-center text-[#aaaaaa]">
+          Aucun produit trouvé pour "${searchQuery}".
+        </div>
+      `;
+
+      bindProductEvents();
+    }
+
+    function bindProductEvents() {
+      document.querySelectorAll("[data-preview-image], [data-preview-name]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const id = Number(btn.dataset.previewImage || btn.dataset.previewName);
+          const product = products.find((p) => p.id === id);
+          if (!product) return;
+          openQuickView(product);
+        });
+      });
+
+      document.querySelectorAll("[data-add]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const id = Number(btn.dataset.add);
+          const product = products.find((p) => p.id === id);
+          if (!product) return;
+
+          addProductToCart(product, product.colors?.[0] || "", product.sizes?.[0] || "");
+        });
+      });
+
+      document.querySelectorAll("[data-order]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const id = Number(btn.dataset.order);
+          const product = products.find((p) => p.id === id);
+
+          const params = new URLSearchParams({ product: String(id) });
+
+          if (!product) return;
+          trackEvent("begin_checkout", {
+            currency: "XOF",
+            value: product.price,
+            items: [{
+              item_id: String(product.id),
+              item_name: product.name,
+              item_category: product.category || "",
+              price: product.price
+            }]
+          });
+          window.location.href = `commande.html?${params.toString()}`;
+        });
+      });
+    }
+
+    function persistCart() {
+      localStorage.setItem("nb_cart", JSON.stringify(cart));
+      renderCart();
+    }
+
+    function renderCart() {
+      if (!cart.length) {
+        cartItemsEl.innerHTML = `<p class="text-[#aaaaaa] text-sm">Votre panier est vide.</p>`;
+      } else {
+        cartItemsEl.innerHTML = cart.map((item) => `
+          <div class="border border-[#222] p-3">
+            <div class="flex gap-3">
+              <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover">
+              <div class="flex-1">
+                <h4 class="text-sm font-semibold">${item.name}</h4>
+                <p class="text-xs text-[#aaaaaa]">${item.color ? `Couleur: ${item.color}` : ""} ${item.size ? `| Taille: ${item.size}` : ""}</p>
+                <p class="text-sm mt-1">${formatFCFA(item.price)}</p>
+                <div class="mt-2 flex items-center gap-2">
+                  <button data-qty="minus" data-key="${item.key}" class="border border-[#333] px-2">-</button>
+                  <span class="text-sm">${item.qty}</span>
+                  <button data-qty="plus" data-key="${item.key}" class="border border-[#333] px-2">+</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `).join("");
+      }
+
+      const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+      const count = cart.reduce((sum, item) => sum + item.qty, 0);
+      cartTotalEl.textContent = formatFCFA(total);
+      cartCountEl.textContent = count;
+
+      document.querySelectorAll("[data-qty]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const key = btn.dataset.key;
+          const type = btn.dataset.qty;
+          const item = cart.find((x) => x.key === key);
+          if (!item) return;
+          if (type === "plus") item.qty += 1;
+          if (type === "minus") item.qty -= 1;
+          cart = cart.filter((x) => x.qty > 0);
+          persistCart();
+        });
+      });
+    }
+
+    function openCart() {
+      cartDrawer.classList.add("drawer-open");
+      overlay.classList.add("overlay-show");
+    }
+    function closeCart() {
+      cartDrawer.classList.remove("drawer-open");
+      overlay.classList.remove("overlay-show");
+    }
+
+    function addProductToCart(product, color = "", size = "") {
+      const image = getProductImage(product);
+      trackEvent("add_to_cart", {
+        currency: "XOF",
+        value: product.price,
+        items: [{
+          item_id: String(product.id),
+          item_name: product.name,
+          item_category: product.category || "",
+          price: product.price,
+          item_variant: [color, size].filter(Boolean).join(" / ")
+        }]
+      });
+
+      const key = `${product.id}-${color || "na"}-${size || "na"}`;
+      const found = cart.find((item) => item.key === key);
+
+      if (found) {
+        found.qty += 1;
+      } else {
+        cart.push({
+          key,
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          image,
+          color,
+          size,
+          qty: 1
+        });
+      }
+
+      persistCart();
+      openCart();
+      showToast("Produit ajouté au panier");
+    }
+
+    function openQuickView(product) {
+      const quickViewModal = document.getElementById("quickViewModal");
+      const quickViewImage = document.getElementById("quickViewImage");
+      const quickViewName = document.getElementById("quickViewName");
+      const quickViewPrice = document.getElementById("quickViewPrice");
+      const quickViewMeta = document.getElementById("quickViewMeta");
+      const quickViewColorsWrap = document.getElementById("quickViewColorsWrap");
+      const quickViewColors = document.getElementById("quickViewColors");
+      const quickViewSizesWrap = document.getElementById("quickViewSizesWrap");
+      const quickViewSizes = document.getElementById("quickViewSizes");
+      const quickViewAddBtn = document.getElementById("quickViewAddBtn");
+      const quickViewOrderBtn = document.getElementById("quickViewOrderBtn");
+      const quickViewThumbs = document.getElementById("quickViewThumbs");
+
+      quickViewState = {
+        product,
+        color: product.colors?.[0] || "",
+        size: product.sizes?.[0] || ""
+      };
+
+      const gallery = product.images && product.images.length ? product.images : (product.image ? [product.image] : []);
+      const initialImage = getImageForColor(product, quickViewState.color) || gallery[0] || "";
+      quickViewImage.src = initialImage;
+      quickViewImage.alt = product.name;
+      quickViewName.textContent = product.name;
+      quickViewPrice.textContent = formatFCFA(product.price);
+
+      if (product.colors?.length) {
+        quickViewColorsWrap.classList.remove("hidden");
+        quickViewColors.innerHTML = product.colors.map((c) => `
+          <button data-qv-color="${c}" class="w-8 h-8 rounded-full border border-[#444]" style="background:${c};" title="${c}"></button>
+        `).join("");
+      } else {
+        quickViewColorsWrap.classList.add("hidden");
+        quickViewColors.innerHTML = "";
+      }
+
+      if (product.sizes?.length) {
+        quickViewSizesWrap.classList.remove("hidden");
+        quickViewSizes.innerHTML = product.sizes.map((s) => `
+          <button data-qv-size="${s}" class="px-3 py-1 border border-[#333] text-sm">${s}</button>
+        `).join("");
+      } else {
+        quickViewSizesWrap.classList.add("hidden");
+        quickViewSizes.innerHTML = "";
+      }
+
+      if (quickViewThumbs) {
+        quickViewThumbs.innerHTML = gallery.map((src) => `
+          <button data-qv-thumb="${src}" class="border border-[#222] p-1">
+            <img src="${src}" alt="Miniature" class="w-14 h-14 object-cover">
+          </button>
+        `).join("");
+      }
+
+      function syncThumbsForSrc(src) {
+        if (!quickViewThumbs) return;
+        quickViewThumbs.querySelectorAll("[data-qv-thumb]").forEach((btn) => {
+          const active = btn.dataset.qvThumb === src;
+          btn.classList.toggle("ring-2", active);
+          btn.classList.toggle("ring-white", active);
+        });
+      }
+
+      function paintQuickViewSelection() {
+        quickViewColors.querySelectorAll("[data-qv-color]").forEach((btn) => {
+          const active = btn.dataset.qvColor === quickViewState.color;
+          btn.classList.toggle("ring-2", active);
+          btn.classList.toggle("ring-white", active);
+        });
+        quickViewSizes.querySelectorAll("[data-qv-size]").forEach((btn) => {
+          const active = btn.dataset.qvSize === quickViewState.size;
+          btn.classList.toggle("bg-white", active);
+          btn.classList.toggle("text-black", active);
+        });
+
+        const colorText = quickViewState.color || "standard";
+        const sizeText = quickViewState.size || "standard";
+        quickViewMeta.textContent = `Couleur: ${colorText} | Taille: ${sizeText}`;
+      }
+
+      quickViewColors.querySelectorAll("[data-qv-color]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          quickViewState.color = btn.dataset.qvColor;
+          const colorImage = getImageForColor(product, quickViewState.color);
+          if (colorImage) {
+            quickViewImage.src = colorImage;
+            syncThumbsForSrc(colorImage);
+          }
+          paintQuickViewSelection();
+        });
+      });
+
+      quickViewSizes.querySelectorAll("[data-qv-size]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          quickViewState.size = btn.dataset.qvSize;
+          paintQuickViewSelection();
+        });
+      });
+
+      if (quickViewThumbs) {
+        quickViewThumbs.querySelectorAll("[data-qv-thumb]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const src = btn.dataset.qvThumb;
+            quickViewImage.src = src;
+            syncThumbsForSrc(src);
+            const idx = product.images ? product.images.indexOf(src) : -1;
+            if (idx >= 0 && product.colors?.[idx]) {
+              quickViewState.color = product.colors[idx];
+              paintQuickViewSelection();
+            }
+          });
+        });
+      }
+
+      syncThumbsForSrc(initialImage);
+      paintQuickViewSelection();
+
+      quickViewAddBtn.onclick = () => {
+        if (product.colors?.length && !quickViewState.color) return showToast("Choisis une couleur");
+        if (product.sizes?.length && !quickViewState.size) return showToast("Choisis une taille");
+        addProductToCart(product, quickViewState.color || "", quickViewState.size || "");
+        closeQuickView();
+      };
+      quickViewOrderBtn.onclick = () => {
+        if (product.colors?.length && !quickViewState.color) return showToast("Choisis une couleur");
+        if (product.sizes?.length && !quickViewState.size) return showToast("Choisis une taille");
+        const params = new URLSearchParams({
+          product: String(product.id),
+          color: quickViewState.color || "",
+          size: quickViewState.size || ""
+        });
+        window.location.href = `commande.html?${params.toString()}`;
+      };
+
+      quickViewModal.classList.remove("hidden");
+      quickViewModal.classList.add("flex");
+    }
+
+    function closeQuickView() {
+      const quickViewModal = document.getElementById("quickViewModal");
+      quickViewModal.classList.add("hidden");
+      quickViewModal.classList.remove("flex");
+    }
+
+    function showToast(message) {
+      toastEl.textContent = message;
+      toastEl.classList.add("show");
+      setTimeout(() => toastEl.classList.remove("show"), 2600);
+    }
+
+    function trackEvent(eventName, params = {}) {
+      if (typeof gtag !== "function") return;
+      gtag("event", eventName, params);
+    }
+
+    function formatOrderMessage(order) {
+      const lines = order.items.map((item, idx) => {
+        const options = [item.color ? `Couleur: ${item.color}` : "", item.size ? `Taille: ${item.size}` : ""].filter(Boolean).join(" | ");
+        return `${idx + 1}. ${item.name} x${item.qty} - ${formatFCFA(item.price * item.qty)}${options ? ` (${options})` : ""}`;
+      });
+
+      return [
+        `Nouvelle commande ${order.id}`,
+        `Paiement: ${order.paymentMethod}`,
+        order.customerName ? `Client: ${order.customerName}` : "",
+        order.customerAddress ? `Adresse: ${order.customerAddress}` : "",
+        order.operator ? `Opérateur: ${order.operator}` : "",
+        order.phone ? `Téléphone client: ${order.phone}` : "",
+        "",
+        "Articles:",
+        ...lines,
+        "",
+        `Total: ${formatFCFA(order.total)}`
+      ].filter(Boolean).join("\n");
+    }
+
+    function sendOrderToWhatsApp(order) {
+      const text = encodeURIComponent(formatOrderMessage(order));
+      window.open(`https://wa.me/${BUSINESS_WHATSAPP}?text=${text}`, "_blank");
+    }
+
+    function pushBrowserNotification(order) {
+      if (!("Notification" in window) || Notification.permission !== "granted") return;
+      new Notification("MANDEM SHOP - Nouvelle commande", {
+        body: `${order.id} | ${formatFCFA(order.total)} | ${order.items.length} article(s)`
+      });
+    }
+
+    function updateNotifStatus() {
+      if (!("Notification" in window)) {
+        notifStatus.textContent = "Notifications non supportées sur ce navigateur";
+        return;
+      }
+      if (Notification.permission === "granted") {
+        notifStatus.textContent = "Notifications commandes activées";
+      } else if (Notification.permission === "denied") {
+        notifStatus.textContent = "Notifications bloquées par le navigateur";
+      } else {
+        notifStatus.textContent = "Notifications navigateur non activées";
+      }
+    }
+
+    function trackPageView() {
+      if (!USE_BACKEND) return;
+      fetch(`${API_BASE}/api/metrics/track`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ path: window.location.pathname })
+      }).catch(() => {});
+    }
+
+    // Paiement
+    const paymentInputs = () => document.querySelectorAll('input[name="paymentMethod"]');
+    const operatorInputs = () => document.querySelectorAll('input[name="mmOperator"]');
+    const phoneWrap = document.getElementById("phoneWrap");
+    const phoneInput = document.getElementById("phoneInput");
+    const phoneHelp = document.getElementById("phoneHelp");
+    const customerNameInput = document.getElementById("customerNameInput");
+    const customerAddressInput = document.getElementById("customerAddressInput");
+    const payBtn = document.getElementById("payBtn");
+
+    function updatePaymentUI() {
+      const method = [...paymentInputs()].find((i) => i.checked)?.value;
+      phoneWrap.style.display = method === "paytech" ? "block" : "none";
+      payBtn.textContent = method === "paytech" ? "Payer avec PayTech" : "Confirmer (Paiement à la livraison)";
+    }
+
+    function validSNMobilePhone(phone) {
+      const clean = phone.replace(/\s+/g, "");
+      return /^(?:\+221)?(7[05678])\d{7}$/.test(clean);
+    }
+
+    function selectedOperator() {
+      return [...operatorInputs()].find((i) => i.checked)?.value || "Wave";
+    }
+
+    async function initiatePayTechPayment(orderRef) {
+      const response = await fetch(`${API_BASE}/api/paytech/init`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ orderRef })
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(errorText || "Erreur API PayTech");
+      }
+
+      const data = await response.json();
+      const redirectUrl = data.redirect_url || data.payment_url || data.url;
+      if (!redirectUrl) {
+        throw new Error("URL de redirection PayTech introuvable");
+      }
+
+      return redirectUrl;
+    }
+
+    enableNotifBtn.addEventListener("click", async () => {
+      if (!("Notification" in window)) return showToast("Navigateur non compatible");
+      const permission = await Notification.requestPermission();
+      updateNotifStatus();
+      if (permission === "granted") showToast("Notifications activées");
+      if (permission === "denied") showToast("Notifications refusées");
+    });
+
+    document.getElementById("openCartBtn").addEventListener("click", openCart);
+    document.getElementById("closeCartBtn").addEventListener("click", closeCart);
+    overlay.addEventListener("click", closeCart);
+    document.getElementById("quickViewCloseBtn").addEventListener("click", closeQuickView);
+    document.getElementById("quickViewBackdrop").addEventListener("click", closeQuickView);
+
+    if (mobileMenuBtn) {
+      mobileMenuBtn.addEventListener("click", openMobileMenu);
+      mobileMenuClose.addEventListener("click", closeMobileMenu);
+      mobileMenuOverlay.addEventListener("click", closeMobileMenu);
+      document.querySelectorAll("[data-mobile-link]").forEach((link) => {
+        link.addEventListener("click", closeMobileMenu);
+      });
+    }
+
+    document.getElementById("checkoutBtn").addEventListener("click", () => {
+      if (!cart.length) return alert("Votre panier est vide.");
+      checkoutModal.classList.remove("hidden");
+      checkoutModal.classList.add("flex");
+      updatePaymentUI();
+    });
+
+    document.getElementById("closeCheckout").addEventListener("click", () => {
+      checkoutModal.classList.add("hidden");
+      checkoutModal.classList.remove("flex");
+    });
+
+    document.addEventListener("change", (e) => {
+      if (e.target.name === "paymentMethod") updatePaymentUI();
+      if (e.target.name === "mmOperator") {
+        const operator = selectedOperator();
+        phoneHelp.textContent = `Paiement ${operator} : numéro sénégalais requis (77/78/76/70/75 + 7 chiffres).`;
+      }
+    });
+
+    payBtn.addEventListener("click", async () => {
+      const method = [...paymentInputs()].find((i) => i.checked)?.value;
+      const orderItems = cart.map((item) => ({ ...item }));
+      const orderPhone = phoneInput.value.trim();
+      const customerName = customerNameInput.value.trim();
+      const customerAddress = customerAddressInput.value.trim();
+      let paymentLabel = "Paiement à la livraison";
+      let operator = "";
+
+      if (!customerName) return alert("Nom complet obligatoire.");
+      if (!customerAddress) return alert("Adresse de livraison obligatoire.");
+      if (!validSNMobilePhone(phoneInput.value)) return alert("Numéro invalide. Ex: 77 123 45 67");
+      if (method === "paytech") operator = selectedOperator();
+
+      payBtn.disabled = true;
+      payBtn.classList.add("opacity-70", "cursor-not-allowed");
+
+      try {
+        const localOrder = {
+          id: generateOrderRef(),
+          paymentMethod: method === "paytech" ? "PayTech" : paymentLabel,
+          operator,
+          phone: orderPhone,
+          customerName,
+          customerAddress,
+          items: orderItems,
+          total: orderItems.reduce((sum, item) => sum + (item.price * item.qty), 0)
+        };
+
+        if (!USE_BACKEND) {
+          if (method === "paytech") {
+            sendOrderToWhatsApp({ ...localOrder, paymentMethod: "PayTech (validation WhatsApp)" });
+            pushBrowserNotification(localOrder);
+            showToast(`Commande ${localOrder.id} envoyée sur WhatsApp`);
+            alert("Mode Drop: PayTech API indisponible. Validation manuelle via WhatsApp.");
+          } else {
+            alert("Commande confirmée. Paiement à la livraison.");
+            sendOrderToWhatsApp(localOrder);
+            pushBrowserNotification(localOrder);
+            showToast(`Commande ${localOrder.id} reçue`);
+          }
+
+          cart = [];
+          persistCart();
+          checkoutModal.classList.add("hidden");
+          checkoutModal.classList.remove("flex");
+          closeCart();
+          return;
+        }
+
+        const orderResponse = await fetch(`${API_BASE}/api/orders`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            paymentMethod: method === "paytech" ? "PayTech" : paymentLabel,
+            operator,
+            phone: orderPhone,
+            customerName,
+            customerAddress,
+            customerEmail: "",
+            items: orderItems
+          })
+        });
+
+        if (!orderResponse.ok) {
+          const err = await orderResponse.text();
+          throw new Error(err || "Création de commande impossible");
+        }
+
+        const created = await orderResponse.json();
+        const order = {
+          id: created.orderRef,
+          paymentMethod: method === "paytech" ? "PayTech" : paymentLabel,
+          operator,
+          phone: orderPhone,
+          customerName,
+          customerAddress,
+          items: orderItems,
+          total: created.total
+        };
+
+        if (method === "paytech") {
+          const redirectUrl = await initiatePayTechPayment(created.orderRef);
+          sendOrderToWhatsApp({ ...order, paymentMethod: "PayTech (initié)" });
+          pushBrowserNotification({ ...order, paymentMethod: "PayTech (initié)" });
+          showToast(`Commande ${order.id} créée, redirection PayTech...`);
+          setTimeout(() => {
+            window.location.href = redirectUrl;
+          }, 700);
+          return;
+        }
+
+        alert("Commande confirmée. Paiement à la livraison.");
+        sendOrderToWhatsApp(order);
+        pushBrowserNotification(order);
+        showToast(`Commande ${order.id} reçue`);
+        cart = [];
+        persistCart();
+        checkoutModal.classList.add("hidden");
+        checkoutModal.classList.remove("flex");
+        closeCart();
+      } catch (error) {
+        console.error(error);
+        alert(`Paiement impossible: ${error.message}`);
+      } finally {
+        payBtn.disabled = false;
+        payBtn.classList.remove("opacity-70", "cursor-not-allowed");
+      }
+    });
+
+    async function initApp() {
+      try {
+        products = await fetchProductsFromApi();
+        persistProductsLocalOnly();
+      } catch (error) {
+        products = loadProductsFromStorage();
+      }
+
+      renderProducts();
+      renderCart();
+      updateNotifStatus();
+      refreshAdminSelect();
+      clearAdminForm();
+    }
+
+    searchInput.addEventListener("input", () => {
+      searchQuery = searchInput.value;
+      renderProducts();
+    });
+
+    let logoTapCount = 0;
+    let logoTapTimer;
+    logoTrigger.addEventListener("click", (event) => {
+      event.preventDefault();
+      logoTapCount += 1;
+      clearTimeout(logoTapTimer);
+      logoTapTimer = setTimeout(() => {
+        logoTapCount = 0;
+      }, 1700);
+
+      if (logoTapCount >= 5) {
+        logoTapCount = 0;
+        const next = !isOwnerModeEnabled();
+        setOwnerMode(next);
+        showToast(next ? "Mode proprietaire active" : "Mode proprietaire desactive");
+      }
+
+      window.location.hash = "accueil";
+    });
+
+    setOwnerMode(isOwnerModeEnabled());
+
+    initApp();
+    trackPageView();
+  </script>
+  <script>
+    // Enregistrement service worker PWA (scope racine)
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker
+          .register("/service-worker.js", { scope: "/" })
+          .then((registration) => {
+            console.log("Service Worker actif:", registration.scope);
+          })
+          .catch((error) => {
+            console.log("Echec Service Worker:", error);
+          });
+      });
+    }
+  </script>
+</body>
+</html>

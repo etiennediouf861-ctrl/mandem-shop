@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Mandem Shop: Ouvrir site local",
+      "type": "pwa-msedge",
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}",
+      "preLaunchTask": "Mandem Shop: dev server"
+    },
+    {
+      "name": "Mandem Shop: Ouvrir site local (Chrome)",
+      "type": "pwa-chrome",
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}",
+      "preLaunchTask": "Mandem Shop: dev server"
+    }
+  ]
+}

@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Commander | MANDEM SHOP</title>
+  <meta name="description" content="Finalisez votre commande MANDEM SHOP en toute sécurité." />
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RYL2JK73EY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-RYL2JK73EY");
+  </script>
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#e63946" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: Inter, system-ui, sans-serif;
+      background: #000;
+      color: #fff;
+    }
+    .active-choice { outline: 2px solid #fff; outline-offset: 2px; }
+  </style>
+</head>
+<body>
+  <header class="border-b border-[#222] bg-black/95 sticky top-0 z-30">
+    <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between relative">
+      <a href="index.html" class="font-bold">← Retour boutique</a>
+      <a href="index.html" class="absolute left-1/2 -translate-x-1/2">
+        <video class="h-14 md:h-16 w-auto object-contain" autoplay muted loop playsinline preload="metadata" aria-label="Logo MANDEM SHOP">
+          <source src="images/logo.mp4" type="video/mp4">
+        </video>
+      </a>
+      <p class="text-sm text-[#aaa]">Commande rapide</p>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-4 py-8 grid gap-6 md:grid-cols-2">
+    <section class="border border-[#222] p-4">
+      <img id="productImage" src="" alt="Produit" class="w-full h-[420px] object-cover" />
+      <div id="productThumbs" class="mt-3 flex flex-wrap gap-2"></div>
+    </section>
+
+    <section class="border border-[#222] p-4 space-y-4">
+      <p class="text-xs uppercase tracking-[0.2em] text-[#aaa]">MANDEM SHOP</p>
+      <h1 id="productName" class="text-2xl md:text-3xl font-bold"></h1>
+      <p id="productPrice" class="text-lg text-[#ddd]"></p>
+
+      <div id="colorWrap" class="space-y-2 hidden">
+        <p class="text-sm text-[#bbb]">Couleur</p>
+        <div id="colorOptions" class="flex flex-wrap gap-2"></div>
+      </div>
+
+      <div id="sizeWrap" class="space-y-2 hidden">
+        <p class="text-sm text-[#bbb]">Taille</p>
+        <div id="sizeOptions" class="flex flex-wrap gap-2"></div>
+      </div>
+
+      <div class="text-sm text-[#bbb] space-y-1">
+        <p id="selectedColorText">Couleur choisie: -</p>
+        <p id="selectedSizeText">Taille choisie: -</p>
+      </div>
+
+      <div class="space-y-2">
+        <p class="text-sm text-[#bbb]">Quantité</p>
+        <div class="inline-flex border border-[#333]">
+          <button id="minusQty" class="px-3 py-2">-</button>
+          <span id="qty" class="px-4 py-2 border-x border-[#333]">1</span>
+          <button id="plusQty" class="px-3 py-2">+</button>
+        </div>
+      </div>
+
+      <div class="border border-[#222] p-3 space-y-3">
+        <h2 class="font-semibold">Infos client</h2>
+        <input id="customerName" type="text" placeholder="Nom complet" required class="w-full bg-black border border-[#333] px-3 py-2" />
+        <input id="customerEmail" type="email" placeholder="Email (optionnel)" class="w-full bg-black border border-[#333] px-3 py-2" />
+        <input id="customerAddress" type="text" placeholder="Adresse de livraison" required class="w-full bg-black border border-[#333] px-3 py-2" />
+      </div>
+
+      <div class="border border-[#222] p-3 space-y-3">
+        <h2 class="font-semibold">Paiement</h2>
+        <label class="flex items-start gap-2 text-sm">
+          <input type="radio" name="paymentMethod" value="paytech" checked class="mt-1" />
+          <span class="flex flex-wrap items-center gap-2">
+            <span>PayTech</span>
+            <img src="images/wave-logo.svg" alt="Wave" class="h-4 w-auto" />
+            <img src="images/orange-money-logo.svg" alt="Orange Money" class="h-4 w-auto" />
+            <span class="inline-flex h-4 min-w-[28px] items-center justify-center rounded border border-[#555] px-1 text-[9px] font-semibold tracking-wide">FREE</span>
+          </span>
+        </label>
+        <label class="flex items-start gap-2 text-sm">
+          <input type="radio" name="paymentMethod" value="delivery" class="mt-1" />
+          <span>Paiement à la livraison</span>
+        </label>
+
+        <div id="paytechFields" class="space-y-2">
+          <select id="operator" class="w-full bg-black border border-[#333] px-3 py-2">
+            <option>Wave</option>
+            <option>Orange Money</option>
+            <option>Free Money</option>
+          </select>
+          <input id="phone" type="tel" placeholder="77 123 45 67" required class="w-full bg-black border border-[#333] px-3 py-2" />
+          <p class="text-xs text-[#888]">Numéro requis pour toute commande (77/78/76/70/75 + 7 chiffres)</p>
+
+          <div class="pt-2 border-t border-[#222]">
+            <p class="text-xs text-[#aaa] mb-2">Validation rapide via WhatsApp</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <button id="waWaveBtn" type="button" class="flex items-center justify-center gap-2 border border-[#333] py-2 hover:bg-white hover:text-black transition">
+                <img src="images/wave-logo.svg" alt="Wave" class="h-5 w-auto" />
+                <span class="text-sm font-semibold">Valider Wave</span>
+              </button>
+              <button id="waOrangeBtn" type="button" class="flex items-center justify-center gap-2 border border-[#333] py-2 hover:bg-white hover:text-black transition">
+                <img src="images/orange-money-logo.svg" alt="Orange Money" class="h-5 w-auto" />
+                <span class="text-sm font-semibold">Valider Orange</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-2 border-t border-[#222]">
+        <p class="text-[#bbb]">Total: <span id="total" class="text-white font-bold"></span></p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        <button id="addToCartBtn" class="w-full border border-[#333] text-white py-3 font-semibold hover:bg-white hover:text-black transition">Ajouter au panier</button>
+        <button id="confirmOrder" class="w-full bg-white text-black py-3 font-semibold hover:bg-[#e0e0e0] transition">Commander maintenant</button>
+      </div>
+      <p id="orderMsg" class="text-sm text-[#aaa]"></p>
+    </section>
+  </main>
+
+  <script src="products.js"></script>
+  <script>
+    const PRODUCTS_STORAGE_KEY = "mandem_products";
+    const API_BASE = localStorage.getItem("mandem_api_base") || ((["localhost", "127.0.0.1"].includes(window.location.hostname)) ? "http://localhost:3000" : "");
+    const USE_BACKEND = Boolean(API_BASE);
+    const defaultProducts = window.MANDEM_PRODUCTS || [];
+    let products = (() => {
+      const raw = localStorage.getItem(PRODUCTS_STORAGE_KEY);
+      if (!raw) return defaultProducts;
+      try {
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : defaultProducts;
+      } catch {
+        return defaultProducts;
+      }
+    })();
+
+    const formatFCFA = (v) => `${v.toLocaleString("fr-FR")} FCFA`;
+    const params = new URLSearchParams(window.location.search);
+    const id = Number(params.get("product"));
+    const preColor = params.get("color") || "";
+    const preSize = params.get("size") || "";
+    let product = null;
+
+    const productImage = document.getElementById("productImage");
+    const productThumbs = document.getElementById("productThumbs");
+    const productName = document.getElementById("productName");
+    const productPrice = document.getElementById("productPrice");
+    const colorWrap = document.getElementById("colorWrap");
+    const colorOptions = document.getElementById("colorOptions");
+    const sizeWrap = document.getElementById("sizeWrap");
+    const sizeOptions = document.getElementById("sizeOptions");
+    const qtyEl = document.getElementById("qty");
+    const minusQty = document.getElementById("minusQty");
+    const plusQty = document.getElementById("plusQty");
+    const totalEl = document.getElementById("total");
+    const paytechFields = document.getElementById("paytechFields");
+    const phoneEl = document.getElementById("phone");
+    const operatorEl = document.getElementById("operator");
+    const addToCartBtn = document.getElementById("addToCartBtn");
+    const confirmOrder = document.getElementById("confirmOrder");
+    const orderMsg = document.getElementById("orderMsg");
+    const waWaveBtn = document.getElementById("waWaveBtn");
+    const waOrangeBtn = document.getElementById("waOrangeBtn");
+    const selectedColorText = document.getElementById("selectedColorText");
+    const selectedSizeText = document.getElementById("selectedSizeText");
+    const customerNameEl = document.getElementById("customerName");
+    const customerEmailEl = document.getElementById("customerEmail");
+    const customerAddressEl = document.getElementById("customerAddress");
+    const WHATSAPP_NUMBER = "221775111280";
+
+    let qty = 1;
+    let selectedColor = "";
+    let selectedSize = "";
+
+    function trackEvent(eventName, params = {}) {
+      if (typeof gtag !== "function") return;
+      gtag("event", eventName, params);
+    }
+
+    function generateOrderRef() {
+      const ts = Date.now().toString().slice(-7);
+      return `MS-LOCAL-${ts}`;
+    }
+
+    async function hydrateProducts() {
+      if (!USE_BACKEND) return;
+      try {
+        const response = await fetch(`${API_BASE}/api/products`);
+        if (response.ok) {
+          products = await response.json();
+          localStorage.setItem(PRODUCTS_STORAGE_KEY, JSON.stringify(products));
+        }
+      } catch {
+        // fallback local/products.js
+      }
+    }
+
+    function getProductImages(item) {
+      if (Array.isArray(item.images) && item.images.length) return item.images;
+      if (item.image) return [item.image];
+      return [];
+    }
+
+    function getImageForColor(item, color) {
+      if (!color) return getProductImages(item)[0] || "";
+      if (item.colorImages && item.colorImages[color]) return item.colorImages[color];
+      if (Array.isArray(item.colors) && Array.isArray(item.images)) {
+        const idx = item.colors.findIndex((c) => c === color);
+        if (idx >= 0 && item.images[idx]) return item.images[idx];
+      }
+      return getProductImages(item)[0] || "";
+    }
+
+    function renderProduct() {
+      const images = getProductImages(product);
+      productImage.src = getImageForColor(product, selectedColor) || images[0] || "";
+      productImage.alt = product.name;
+      productName.textContent = product.name;
+      productPrice.textContent = formatFCFA(product.price);
+
+      if (images.length > 1) {
+        productThumbs.innerHTML = images.map((src, index) => `
+          <button data-index="${index}" class="thumb border border-[#333] ${index === 0 ? "ring-2 ring-white" : ""}">
+            <img src="${src}" alt="${product.name} ${index + 1}" class="w-16 h-16 object-cover" />
+          </button>
+        `).join("");
+
+        productThumbs.querySelectorAll(".thumb").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const idx = Number(btn.dataset.index);
+            productImage.src = images[idx];
+            productThumbs.querySelectorAll(".thumb").forEach((b) => b.classList.remove("ring-2", "ring-white"));
+            btn.classList.add("ring-2", "ring-white");
+            if (product.colors?.[idx]) {
+              selectedColor = product.colors[idx];
+              refreshChoices();
+              colorOptions.querySelectorAll(".color-choice").forEach((b) => b.classList.remove("active-choice"));
+              const match = colorOptions.querySelector(`[data-color="${selectedColor}"]`);
+              if (match) match.classList.add("active-choice");
+            }
+          });
+        });
+      } else {
+        productThumbs.innerHTML = "";
+      }
+
+      if (product.colors?.length) {
+        colorWrap.classList.remove("hidden");
+        colorOptions.innerHTML = product.colors.map((c) => `
+          <button data-color="${c}" class="color-choice w-8 h-8 rounded-full border border-[#444]" style="background:${c};" title="${c}"></button>
+        `).join("");
+
+        colorOptions.querySelectorAll(".color-choice").forEach((btn) => {
+          if (btn.dataset.color === selectedColor) btn.classList.add("active-choice");
+          btn.addEventListener("click", () => {
+            selectedColor = btn.dataset.color;
+            colorOptions.querySelectorAll(".color-choice").forEach((b) => b.classList.remove("active-choice"));
+            btn.classList.add("active-choice");
+            const colorImage = getImageForColor(product, selectedColor);
+            if (colorImage) {
+              productImage.src = colorImage;
+              productThumbs.querySelectorAll(".thumb").forEach((b) => b.classList.remove("ring-2", "ring-white"));
+              const idx = images.indexOf(colorImage);
+              if (idx >= 0) {
+                const thumb = productThumbs.querySelector(`[data-index="${idx}"]`);
+                if (thumb) thumb.classList.add("ring-2", "ring-white");
+              }
+            }
+            refreshChoices();
+          });
+        });
+      }
+
+      if (product.sizes?.length) {
+        sizeWrap.classList.remove("hidden");
+        sizeOptions.innerHTML = product.sizes.map((s) => `
+          <button data-size="${s}" class="size-choice px-3 py-1 border border-[#333] text-sm">${s}</button>
+        `).join("");
+
+        sizeOptions.querySelectorAll(".size-choice").forEach((btn) => {
+          if (btn.dataset.size === selectedSize) btn.classList.add("active-choice");
+          btn.addEventListener("click", () => {
+            selectedSize = btn.dataset.size;
+            sizeOptions.querySelectorAll(".size-choice").forEach((b) => b.classList.remove("active-choice"));
+            btn.classList.add("active-choice");
+            refreshChoices();
+          });
+        });
+      }
+
+      refreshChoices();
+      refreshTotal();
+    }
+
+    function refreshChoices() {
+      selectedColorText.textContent = `Couleur choisie: ${selectedColor || "Aucune"}`;
+      selectedSizeText.textContent = `Taille choisie: ${selectedSize || "Aucune"}`;
+    }
+
+    function refreshTotal() {
+      qtyEl.textContent = qty;
+      totalEl.textContent = formatFCFA(product.price * qty);
+    }
+
+    minusQty.addEventListener("click", () => {
+      qty = Math.max(1, qty - 1);
+      refreshTotal();
+    });
+
+    plusQty.addEventListener("click", () => {
+      qty = Math.min(20, qty + 1);
+      refreshTotal();
+    });
+
+    document.querySelectorAll('input[name="paymentMethod"]').forEach((input) => {
+      input.addEventListener("change", () => {
+        paytechFields.style.display = input.value === "paytech" && input.checked ? "block" : "none";
+      });
+    });
+
+    function validSNPhone(phone) {
+      const clean = phone.replace(/\s+/g, "");
+      return /^(?:\+221)?(7[05678])\d{7}$/.test(clean);
+    }
+
+    function buildWhatsAppMessage(operatorName) {
+      const customerName = customerNameEl.value.trim();
+      const customerAddress = customerAddressEl.value.trim();
+      const phone = phoneEl.value.trim();
+
+      if (!customerName) throw new Error("Nom complet requis");
+      if (!customerAddress) throw new Error("Adresse de livraison requise");
+      if (!validSNPhone(phone)) throw new Error("Numéro invalide. Ex: 77 123 45 67");
+      if (product.colors?.length && !selectedColor) throw new Error("Choisissez une couleur");
+      if (product.sizes?.length && !selectedSize) throw new Error("Choisissez une taille");
+
+      return [
+        "Bonjour MANDEM SHOP, je veux valider ma commande via WhatsApp.",
+        `Operateur: ${operatorName}`,
+        `Produit: ${product.name}`,
+        `Quantite: ${qty}`,
+        selectedColor ? `Couleur: ${selectedColor}` : "",
+        selectedSize ? `Taille: ${selectedSize}` : "",
+        `Total: ${formatFCFA(product.price * qty)}`,
+        `Nom: ${customerName}`,
+        `Telephone: ${phone}`,
+        `Adresse: ${customerAddress}`
+      ].filter(Boolean).join("\n");
+    }
+
+    addToCartBtn.addEventListener("click", () => {
+      if (product.colors?.length && !selectedColor) return alert("Choisissez une couleur");
+      if (product.sizes?.length && !selectedSize) return alert("Choisissez une taille");
+
+      trackEvent("add_to_cart", {
+        currency: "XOF",
+        value: product.price * qty,
+        items: [{
+          item_id: String(product.id),
+          item_name: product.name,
+          item_category: product.category || "",
+          price: product.price,
+          quantity: qty,
+          item_variant: [selectedColor, selectedSize].filter(Boolean).join(" / ")
+        }]
+      });
+
+      const images = getProductImages(product);
+      const key = `${product.id}-${selectedColor || "na"}-${selectedSize || "na"}`;
+      const cart = JSON.parse(localStorage.getItem("nb_cart") || "[]");
+      const found = cart.find((item) => item.key === key);
+
+      if (found) {
+        found.qty += qty;
+      } else {
+        cart.push({
+          key,
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          image: images[0] || "",
+          color: selectedColor || "",
+          size: selectedSize || "",
+          qty
+        });
+      }
+
+      localStorage.setItem("nb_cart", JSON.stringify(cart));
+      orderMsg.textContent = "Produit ajouté au panier.";
+    });
+
+    waWaveBtn.addEventListener("click", () => {
+      try {
+        const message = buildWhatsAppMessage("Wave");
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank");
+      } catch (error) {
+        orderMsg.textContent = `Erreur: ${error.message}`;
+      }
+    });
+
+    waOrangeBtn.addEventListener("click", () => {
+      try {
+        const message = buildWhatsAppMessage("Orange Money");
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank");
+      } catch (error) {
+        orderMsg.textContent = `Erreur: ${error.message}`;
+      }
+    });
+
+    confirmOrder.addEventListener("click", async () => {
+      if (product.colors?.length && !selectedColor) return alert("Choisissez une couleur");
+      if (product.sizes?.length && !selectedSize) return alert("Choisissez une taille");
+
+      const paymentMethod = [...document.querySelectorAll('input[name="paymentMethod"]')].find((i) => i.checked)?.value;
+      const operator = operatorEl.value;
+      const phone = phoneEl.value.trim();
+      const customerName = customerNameEl.value.trim();
+      const customerEmail = customerEmailEl.value.trim();
+      const customerAddress = customerAddressEl.value.trim();
+
+      if (!customerName) return alert("Nom complet requis");
+      if (!customerAddress) return alert("Adresse de livraison requise");
+
+      if (!validSNPhone(phone)) return alert("Numéro invalide. Ex: 77 123 45 67");
+
+      trackEvent("begin_checkout", {
+        currency: "XOF",
+        value: product.price * qty,
+        items: [{
+          item_id: String(product.id),
+          item_name: product.name,
+          item_category: product.category || "",
+          price: product.price,
+          quantity: qty,
+          item_variant: [selectedColor, selectedSize].filter(Boolean).join(" / ")
+        }]
+      });
+
+      confirmOrder.disabled = true;
+      confirmOrder.classList.add("opacity-70");
+      orderMsg.textContent = "Création de la commande...";
+
+      try {
+        if (!USE_BACKEND) {
+          const localRef = generateOrderRef();
+          const operatorLabel = paymentMethod === "paytech" ? operator : "Paiement à la livraison";
+          const localMessage = [
+            `Bonjour MANDEM SHOP, nouvelle commande ${localRef}.`,
+            `Paiement: ${operatorLabel}`,
+            `Produit: ${product.name}`,
+            `Quantite: ${qty}`,
+            selectedColor ? `Couleur: ${selectedColor}` : "",
+            selectedSize ? `Taille: ${selectedSize}` : "",
+            `Total: ${formatFCFA(product.price * qty)}`,
+            `Nom: ${customerName}`,
+            `Telephone: ${phone || "Non renseigné"}`,
+            `Adresse: ${customerAddress}`,
+            customerEmail ? `Email: ${customerEmail}` : ""
+          ].filter(Boolean).join("\n");
+
+          trackEvent("purchase", {
+            transaction_id: localRef,
+            currency: "XOF",
+            value: product.price * qty,
+            payment_type: paymentMethod === "paytech" ? "PayTech" : "Paiement à la livraison",
+            items: [{
+              item_id: String(product.id),
+              item_name: product.name,
+              item_category: product.category || "",
+              price: product.price,
+              quantity: qty,
+              item_variant: [selectedColor, selectedSize].filter(Boolean).join(" / ")
+            }]
+          });
+
+          window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(localMessage)}`, "_blank");
+          orderMsg.textContent = `Commande ${localRef} envoyée via WhatsApp (mode Drop).`;
+          return;
+        }
+
+        const orderResponse = await fetch(`${API_BASE}/api/orders`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            paymentMethod: paymentMethod === "paytech" ? "PayTech" : "Paiement à la livraison",
+            operator: paymentMethod === "paytech" ? operator : "",
+            phone: paymentMethod === "paytech" ? phone : "",
+            customerEmail,
+            customerName,
+            customerAddress,
+            items: [{
+              id: product.id,
+              name: product.name,
+              price: product.price,
+              qty,
+              color: selectedColor || "",
+              size: selectedSize || ""
+            }]
+          })
+        });
+
+        if (!orderResponse.ok) {
+          const err = await orderResponse.text();
+          throw new Error(err || "Erreur création commande");
+        }
+
+        const created = await orderResponse.json();
+
+        if (paymentMethod === "paytech") {
+          const payResponse = await fetch(`${API_BASE}/api/paytech/init`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ orderRef: created.orderRef })
+          });
+          if (!payResponse.ok) {
+            const err = await payResponse.text();
+            throw new Error(err || "Erreur initialisation PayTech");
+          }
+          const data = await payResponse.json();
+          const redirectUrl = data.redirect_url || data.payment_url || data.url;
+          if (!redirectUrl) throw new Error("URL PayTech absente");
+          orderMsg.textContent = "Redirection vers PayTech...";
+          window.location.href = redirectUrl;
+          return;
+        }
+
+        trackEvent("purchase", {
+          transaction_id: created.orderRef,
+          currency: "XOF",
+          value: product.price * qty,
+          payment_type: "Paiement à la livraison",
+          items: [{
+            item_id: String(product.id),
+            item_name: product.name,
+            item_category: product.category || "",
+            price: product.price,
+            quantity: qty,
+            item_variant: [selectedColor, selectedSize].filter(Boolean).join(" / ")
+          }]
+        });
+
+        orderMsg.textContent = `Commande ${created.orderRef} confirmée. Paiement à la livraison.`;
+      } catch (error) {
+        orderMsg.textContent = `Erreur: ${error.message}`;
+      } finally {
+        confirmOrder.disabled = false;
+        confirmOrder.classList.remove("opacity-70");
+      }
+    });
+
+    async function initCommandePage() {
+      await hydrateProducts();
+      product = products.find((p) => Number(p.id) === id);
+
+      if (!product) {
+        document.body.innerHTML = '<div class="min-h-screen grid place-items-center text-center p-4"><div><p>Produit introuvable.</p><a href="index.html" class="underline">Retour boutique</a></div></div>';
+        return;
+      }
+
+      selectedColor = preColor || product.colors?.[0] || "";
+      selectedSize = preSize || product.sizes?.[0] || "";
+      renderProduct();
+    }
+
+    function trackPageView() {
+      if (!USE_BACKEND) return;
+      fetch(`${API_BASE}/api/metrics/track`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ path: window.location.pathname })
+      }).catch(() => {});
+    }
+
+    initCommandePage();
+    trackPageView();
+  </script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker
+          .register("/service-worker.js", { scope: "/" })
+          .then((registration) => {
+            console.log("Service Worker actif:", registration.scope);
+          })
+          .catch((error) => {
+            console.log("Echec Service Worker:", error);
+          });
+      });
+    }
+  </script>
+</body>
+</html>

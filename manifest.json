@@ -1,0 +1,25 @@
+{
+  "name": "MANDEM SHOP",
+  "short_name": "Mandem",
+  "description": "Drip pour la team – Streetwear Sénégal | Mandem Shop",
+  "theme_color": "#e63946",
+  "background_color": "#000000",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

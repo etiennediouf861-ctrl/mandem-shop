@@ -1,0 +1,14 @@
+// Modifie uniquement ce fichier pour changer les produits du site.
+// Champs utiles: name, price, image, colors, sizes, badge, category.
+window.MANDEM_PRODUCTS = [
+  { id: 1, category: "Vêtements", name: "Hoodie Oversize Noir Signature", price: 28000, image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=80", badge: "Nouveau", colors: ["#000000", "#1a1a1a", "#f5f5f5"], sizes: ["S", "M", "L", "XL"] },
+  { id: 2, category: "Vêtements", name: "T-shirt Premium Blanc Brut", price: 12000, image: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=900&q=80", badge: "", colors: ["#ffffff", "#000000"], sizes: ["S", "M", "L"] },
+  { id: 3, category: "Vêtements", name: "Pantalon Cargo Utility", price: 19000, image: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=900&q=80", badge: "Promo", colors: ["#111111", "#2f2f2f"], sizes: ["M", "L", "XL"] },
+  { id: 4, category: "Chaussures", name: "Sneakers Mono High", price: 35000, image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80", badge: "Nouveau", colors: ["#ffffff", "#000000"], sizes: ["40", "41", "42", "43", "44"] },
+  { id: 5, category: "Chaussures", name: "Bottes Urbaines Dakar", price: 42000, image: "https://images.unsplash.com/photo-1608256246200-53e8b47b318d?auto=format&fit=crop&w=900&q=80", badge: "", colors: ["#111111"], sizes: ["41", "42", "43"] },
+  { id: 6, category: "Sacs", name: "Tote Bag Mandem", price: 9500, image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=900&q=80", badge: "", colors: ["#000000", "#ffffff"], sizes: [] },
+  { id: 7, category: "Sacs", name: "Backpack Minimal Tech", price: 23000, image: "https://images.unsplash.com/photo-1581605405669-fcdf81165afa?auto=format&fit=crop&w=900&q=80", badge: "Promo", colors: ["#111111", "#2e2e2e"], sizes: [] },
+  { id: 8, category: "Accessoires", name: "Casquette Monogram", price: 8000, image: "https://images.unsplash.com/photo-1521369909029-2afed882baee?auto=format&fit=crop&w=900&q=80", badge: "", colors: ["#000000", "#ffffff"], sizes: ["Unique"] },
+  { id: 9, category: "Accessoires", name: "Lunettes Shadow Frame", price: 15000, image: "https://images.unsplash.com/photo-1577803645773-f96470509666?auto=format&fit=crop&w=900&q=80", badge: "Nouveau", colors: ["#000000"], sizes: [] },
+  { id: 10, category: "Accessoires", name: "Montre Acier Night", price: 48000, image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=900&q=80", badge: "", colors: ["#111111", "#ffffff"], sizes: [] }
+];
