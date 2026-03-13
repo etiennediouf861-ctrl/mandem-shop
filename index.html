@@ -427,6 +427,11 @@
     const USE_BACKEND = Boolean(API_BASE);
     const DEFAULT_PRODUCTS = window.MANDEM_PRODUCTS || [];
     const BASE_CATEGORIES = ["Vêtements", "Chaussures", "Sacs", "Accessoires"];
+    const SUBCATEGORIES = {
+      "Vêtements": ["Trapstar", "Corteiz", "Syna World"],
+      "Chaussures": ["Crocs"],
+      "Accessoires": ["Bracelet", "Lunette"]
+    };
 
     function cloneDeep(data) {
       return JSON.parse(JSON.stringify(data));
@@ -598,6 +603,11 @@
               <h2 class="text-2xl md:text-3xl font-black italic tracking-tight">${cat}</h2>
               <span class="section-line"></span>
             </div>
+            ${SUBCATEGORIES[cat] ? `
+              <div class="flex flex-wrap gap-2 mb-6 text-xs uppercase tracking-widest text-[#bdbdbd]">
+                ${SUBCATEGORIES[cat].map((sc) => `<span class="border border-[#333] px-3 py-1">${sc}</span>`).join("")}
+              </div>
+            ` : ""}
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
               ${list.map((p, idx) => `
                 <article class="card-hover border border-[#1f1f1f] overflow-hidden p-3 reveal reveal-stagger transition hover:-translate-y-2 hover:shadow-2xl" style="--delay:${Math.min(idx * 60, 360)}ms">
