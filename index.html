@@ -276,9 +276,12 @@
   <section id="comingSoon" class="fixed inset-0 z-[120] hidden items-center justify-center">
     <div class="absolute inset-0 bg-black"></div>
     <div class="relative w-full h-full flex flex-col items-center justify-center px-6 text-center">
-      <video id="comingSoonLogo" class="h-36 md:h-44 w-auto object-contain mb-6" autoplay muted loop playsinline preload="auto" aria-label="Logo MANDEM SHOP">
-        <source src="images/logo.mp4" type="video/mp4">
-      </video>
+      <div class="mb-6">
+        <video id="comingSoonLogo" class="h-36 md:h-44 w-auto object-contain" autoplay muted loop playsinline preload="auto" aria-label="Logo MANDEM SHOP">
+          <source src="images/logo.mp4" type="video/mp4">
+        </video>
+        <img id="comingSoonLogoFallback" src="images/bg-mandem.png" alt="Logo MANDEM SHOP" class="hidden h-36 md:h-44 w-auto object-contain" />
+      </div>
       <p class="label-uppercase text-[#bbbbbb] mb-3">Bientôt disponible</p>
       <h1 class="title-font text-3xl md:text-5xl lg:text-6xl">MANDEM SHOP</h1>
       <p class="text-[#cccccc] mt-4 max-w-xl">Le site arrive. Restez connectés.</p>
@@ -1452,10 +1455,23 @@
     startComingSoonCountdown();
     updateActiveFilterUi();
     const comingSoonLogo = document.getElementById("comingSoonLogo");
+    const comingSoonLogoFallback = document.getElementById("comingSoonLogoFallback");
     if (comingSoonLogo) {
       comingSoonLogo.addEventListener("ended", () => {
         comingSoonLogo.currentTime = 0;
         comingSoonLogo.play().catch(() => {});
+      });
+      comingSoonLogo.addEventListener("error", () => {
+        if (comingSoonLogoFallback) {
+          comingSoonLogo.classList.add("hidden");
+          comingSoonLogoFallback.classList.remove("hidden");
+        }
+      });
+      comingSoonLogo.addEventListener("stalled", () => {
+        if (comingSoonLogoFallback) {
+          comingSoonLogo.classList.add("hidden");
+          comingSoonLogoFallback.classList.remove("hidden");
+        }
       });
       comingSoonLogo.play().catch(() => {});
     }
