@@ -16,6 +16,7 @@
   <link rel="manifest" href="/manifest.json" />
   <meta name="theme-color" content="#e63946" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
@@ -55,6 +56,9 @@
       <p class="text-xs uppercase tracking-[0.2em] text-[#aaa]">MANDEM SHOP</p>
       <h1 id="productName" class="text-2xl md:text-3xl font-bold"></h1>
       <p id="productPrice" class="text-lg text-[#ddd]"></p>
+      <button id="refreshProductBtn" class="border border-[#333] text-white px-4 py-2 text-xs font-semibold hover:bg-white hover:text-black transition">
+        Rafraîchir produit
+      </button>
 
       <div id="colorWrap" class="space-y-2 hidden">
         <p class="text-sm text-[#bbb]">Couleur</p>
@@ -143,7 +147,7 @@
   <script src="products.js"></script>
   <script>
     const PRODUCTS_STORAGE_KEY = "mandem_products";
-    const API_BASE = localStorage.getItem("mandem_api_base") || ((["localhost", "127.0.0.1"].includes(window.location.hostname)) ? "http://localhost:3000" : "");
+    const API_BASE = localStorage.getItem("mandem_api_base") || "";
     const USE_BACKEND = Boolean(API_BASE);
     const defaultProducts = window.MANDEM_PRODUCTS || [];
     let products = (() => {
@@ -163,6 +167,7 @@
     const preColor = params.get("color") || "";
     const preSize = params.get("size") || "";
     let product = null;
+    let productResolved = false;
 
     const productImage = document.getElementById("productImage");
     const productThumbs = document.getElementById("productThumbs");
@@ -189,6 +194,7 @@
     const customerNameEl = document.getElementById("customerName");
     const customerEmailEl = document.getElementById("customerEmail");
     const customerAddressEl = document.getElementById("customerAddress");
+    const refreshProductBtn = document.getElementById("refreshProductBtn");
     const WHATSAPP_NUMBER = "221775111280";
 
     let qty = 1;
@@ -205,12 +211,42 @@
       return `MS-LOCAL-${ts}`;
     }
 
+    function finalizeProduct() {
+      product = products.find((p) => Number(p.id) === id);
+
+      if (!product) {
+        document.body.innerHTML = '<div class="min-h-screen grid place-items-center text-center p-4"><div><p>Produit introuvable.</p><a href="index.html" class="underline">Retour boutique</a></div></div>';
+        return;
+      }
+
+      selectedColor = preColor || product.colors?.[0] || "";
+      selectedSize = preSize || product.sizes?.[0] || "";
+      renderProduct();
+      productResolved = true;
+    }
+
+    async function fetchProductsFromJson() {
+      const response = await fetch(`/data/products.json?ts=${Date.now()}`, { cache: "no-store" });
+      if (!response.ok) throw new Error("Impossible de charger products.json");
+      const data = await response.json();
+      if (Array.isArray(data)) return data;
+      if (data && Array.isArray(data.products)) return data.products;
+      return [];
+    }
+
     async function hydrateProducts() {
-      if (!USE_BACKEND) return;
       try {
-        const response = await fetch(`${API_BASE}/api/products`);
-        if (response.ok) {
-          products = await response.json();
+        if (USE_BACKEND) {
+          const response = await fetch(`${API_BASE}/api/products`);
+          if (response.ok) {
+            products = await response.json();
+            localStorage.setItem(PRODUCTS_STORAGE_KEY, JSON.stringify(products));
+            return;
+          }
+        }
+        const jsonProducts = await fetchProductsFromJson();
+        if (jsonProducts.length) {
+          products = jsonProducts;
           localStorage.setItem(PRODUCTS_STORAGE_KEY, JSON.stringify(products));
         }
       } catch {
@@ -222,6 +258,20 @@
       if (Array.isArray(item.images) && item.images.length) return item.images;
       if (item.image) return [item.image];
       return [];
+    }
+
+    function normalizeText(value) {
+      return String(value || "").trim().toLowerCase();
+    }
+
+    function canonicalCategory(value) {
+      const v = normalizeText(value);
+      if (!v) return "Vêtements";
+      if (v.startsWith("v")) return "Vêtements";
+      if (v.startsWith("ch")) return "Chaussures";
+      if (v.startsWith("sa")) return "Sacs";
+      if (v.startsWith("acc")) return "Accessoires";
+      return String(value || "").trim() || "Vêtements";
     }
 
     function getImageForColor(item, color) {
@@ -573,16 +623,23 @@
 
     async function initCommandePage() {
       await hydrateProducts();
-      product = products.find((p) => Number(p.id) === id);
+      finalizeProduct();
+    }
 
-      if (!product) {
-        document.body.innerHTML = '<div class="min-h-screen grid place-items-center text-center p-4"><div><p>Produit introuvable.</p><a href="index.html" class="underline">Retour boutique</a></div></div>';
-        return;
-      }
-
-      selectedColor = preColor || product.colors?.[0] || "";
-      selectedSize = preSize || product.sizes?.[0] || "";
-      renderProduct();
+    if (refreshProductBtn) {
+      refreshProductBtn.addEventListener("click", async () => {
+        refreshProductBtn.disabled = true;
+        refreshProductBtn.classList.add("opacity-60", "cursor-not-allowed");
+        try {
+          await hydrateProducts();
+          finalizeProduct();
+        } catch {
+          // ignore
+        } finally {
+          refreshProductBtn.disabled = false;
+          refreshProductBtn.classList.remove("opacity-60", "cursor-not-allowed");
+        }
+      });
     }
 
     function trackPageView() {

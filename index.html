@@ -21,6 +21,7 @@
   <link rel="manifest" href="/manifest.json" />
   <meta name="theme-color" content="#e63946" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
@@ -41,8 +42,10 @@
       --line: #333333;
       --hover: #e0e0e0;
       --promo: #6a1a1a;
+      --accent: #f59e0b;
+      --accent-dark: #d97706;
     }
-    html, body { background: var(--bg); color: var(--text); font-family: Inter, system-ui, sans-serif; }
+    html, body { background: var(--bg); color: var(--text); font-family: Inter, system-ui, sans-serif; scroll-behavior: smooth; }
     body {
       background-color: #000;
       background-image: url("images/bg-mandem.png");
@@ -54,9 +57,68 @@
       background-blend-mode: multiply;
       background-color: rgba(0, 0, 0, 0.65);
     }
-    .title-font { font-family: "Playfair Display", serif; }
-    .card-hover { transition: transform .25s ease, box-shadow .25s ease; }
-    .card-hover:hover { transform: scale(1.015); box-shadow: 0 0 0 1px #fff2, 0 10px 30px #ffffff1a; }
+    .title-font { font-family: "Playfair Display", serif; font-weight: 900; font-style: italic; letter-spacing: -0.02em; }
+    .label-uppercase { font-size: 10px; letter-spacing: .35em; text-transform: uppercase; font-weight: 800; }
+    .logo-float { mix-blend-mode: screen; }
+    .glass-panel { background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); }
+    @keyframes bounceSlow {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    .bounce-slow { animation: bounceSlow 3.2s ease-in-out infinite; }
+    .card-hover { transition: transform .45s ease, box-shadow .45s ease; }
+    .card-hover:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 0 0 1px #fff2, 0 18px 40px #ffffff1f; }
+    .nav-scrolled { background: rgba(0,0,0,0.98); border-color: #2a2a2a; box-shadow: 0 10px 30px rgba(0,0,0,0.35); }
+    .hero-parallax { transform: translateY(var(--parallax, 0px)); transition: transform 0.2s ease-out; }
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .8s ease; }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    .reveal-stagger { transition-delay: var(--delay, 0ms); }
+    .btn-soft { transition: transform .35s ease, background-color .35s ease, color .35s ease, box-shadow .35s ease; }
+    .btn-soft:hover { transform: translateY(-1px); box-shadow: 0 8px 18px rgba(255,255,255,0.12); }
+    .btn-accent { background: #ffffff; color: #000000; }
+    .btn-accent:hover { background: var(--accent); color: #000000; box-shadow: 0 10px 24px rgba(245,158,11,0.25); }
+    .image-zoom { transition: transform .6s ease; }
+    .card-hover:hover .image-zoom { transform: scale(1.04); }
+    a, button { transition: color .35s ease, background-color .35s ease, border-color .35s ease, transform .35s ease, box-shadow .35s ease; }
+    input, select { transition: border-color .3s ease, box-shadow .3s ease; }
+    .drawer-open { transition: transform .35s ease; }
+    #overlay { transition: opacity .35s ease, visibility .35s ease; }
+    .hover-actions {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 12px;
+      display: flex;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity .35s ease, transform .35s ease;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 70%, rgba(0,0,0,0.85) 100%);
+      pointer-events: none;
+    }
+    .card-hover:hover .hover-actions {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .hover-quick {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      opacity: 0;
+      transition: opacity .35s ease;
+      text-transform: uppercase;
+      letter-spacing: .35em;
+      font-size: 10px;
+      font-weight: 800;
+      background: rgba(0,0,0,0.35);
+      pointer-events: none;
+    }
+    .card-hover:hover .hover-quick { opacity: 1; }
     .drawer-open { transform: translateX(0) !important; }
     .overlay-show { opacity: 1 !important; visibility: visible !important; }
     #toast { transition: opacity .25s ease, transform .25s ease; }
@@ -66,10 +128,13 @@
 <body class="bg-black text-white">
 
   <!-- Navbar -->
-  <header class="fixed top-0 left-0 right-0 z-50 border-b border-[#222] bg-black/95 backdrop-blur">
+  <header id="siteHeader" class="fixed top-0 left-0 right-0 z-50 border-b border-[#222] bg-black/95 backdrop-blur transition">
     <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between relative">
-      <button id="mobileMenuBtn" class="md:hidden border border-[#333] px-3 py-1.5 text-sm hover:bg-white hover:text-black transition" aria-label="Ouvrir le menu">
-        Menu
+      <button id="mobileMenuBtn" class="md:hidden border border-[#333] px-3 py-1.5 text-sm hover:bg-white hover:text-black transition btn-soft" aria-label="Ouvrir le menu">
+        <span class="sr-only">Menu</span>
+        <span class="block w-5 h-[2px] bg-white mb-1"></span>
+        <span class="block w-5 h-[2px] bg-white mb-1"></span>
+        <span class="block w-5 h-[2px] bg-white"></span>
       </button>
       <nav class="hidden md:flex items-center gap-6 text-sm text-[#cccccc]">
         <a href="#accueil" class="hover:text-white">Accueil</a>
@@ -79,13 +144,15 @@
         <a href="#accessoires" class="hover:text-white">Accessoires</a>
         <a href="#contact" class="hover:text-white">Contact</a>
       </nav>
-      <a id="logoTrigger" href="#accueil" class="absolute left-1/2 -translate-x-1/2">
-        <video class="h-14 md:h-16 w-auto object-contain" autoplay muted loop playsinline preload="metadata" aria-label="Logo MANDEM SHOP">
+      <a id="logoTrigger" href="#accueil" class="absolute left-1/2 -translate-x-1/2 flex items-center">
+        <video class="h-12 md:h-14 w-auto max-w-[160px] md:max-w-[200px] object-contain logo-float" autoplay muted loop playsinline preload="metadata" aria-label="Logo MANDEM SHOP">
           <source src="images/logo.mp4" type="video/mp4">
         </video>
       </a>
-      <button id="openCartBtn" class="relative border border-[#333] px-3 py-1.5 text-sm hover:bg-white hover:text-black transition">
-        Panier
+      <button id="openCartBtn" class="relative border border-[#333] p-2 hover:bg-white hover:text-black transition btn-soft" aria-label="Ouvrir le panier">
+        <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current" aria-hidden="true">
+          <path d="M7 6h-2l-1 2v2h2l2.2 6.5c.2.6.8 1 1.4 1h8.8c.6 0 1.2-.4 1.4-1l2.2-6.5h2V8l-1-2h-2M7 6h10l1 2H6l1-2Zm2.4 12h8.2l1.6-5H7.8l1.6 5ZM9 20a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm8 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/>
+        </svg>
         <span id="cartCount" class="absolute -top-2 -right-2 text-[10px] bg-[#8b0000] text-white rounded-full min-w-[18px] h-[18px] grid place-content-center px-1">0</span>
       </button>
     </div>
@@ -111,28 +178,33 @@
   <main class="pt-16">
     <!-- Hero -->
     <section id="accueil" class="relative min-h-[70vh] md:min-h-[85vh] flex items-center">
-      <img src="images/bg-mandem.png" alt="Background MANDEM SHOP" class="absolute inset-0 w-full h-full object-contain scale-110 opacity-55 pointer-events-none select-none">
+      <img src="images/bg-mandem.png" alt="Background MANDEM SHOP" class="hero-parallax absolute inset-0 w-full h-full object-contain scale-110 opacity-55 pointer-events-none select-none">
       <div class="absolute inset-0 bg-black/40"></div>
-      <div class="relative max-w-7xl mx-auto px-4 py-20 text-center md:text-left">
-        <p class="text-[#bbbbbb] uppercase tracking-[0.25em] text-xs mb-4">Collection 2026</p>
+      <div class="relative max-w-7xl mx-auto px-4 py-20 text-center md:text-left reveal">
+        <p class="text-[#bbbbbb] label-uppercase mb-4">Collection 2026</p>
         <h1 class="title-font text-4xl md:text-6xl lg:text-7xl leading-tight max-w-4xl md:mx-0 mx-auto">MANDEM SHOP</h1>
         <p class="text-[#cccccc] mt-5 max-w-2xl md:mx-0 mx-auto">Mode urbaine premium : la même qualité, juste des prix qui baissent.</p>
-        <a href="#vetements" class="inline-block mt-8 bg-white text-black px-6 py-3 font-semibold hover:bg-[#e0e0e0] transition w-full sm:w-auto">Découvrir</a>
+        <a href="#vetements" class="inline-block mt-8 bg-white text-black px-6 py-3 font-semibold hover:bg-[#e0e0e0] transition w-full sm:w-auto btn-soft btn-accent">Découvrir</a>
       </div>
     </section>
 
     <!-- Conteneur produits -->
-    <section class="max-w-7xl mx-auto px-4 py-12 md:py-16">
-      <div class="mb-8">
-        <label for="searchInput" class="block text-sm text-[#bbbbbb] mb-2">Rechercher un produit</label>
-        <input id="searchInput" type="search" placeholder="Ex: hoodie, sneakers, casquette..." class="w-full md:max-w-md bg-black border border-[#333] px-4 py-3 text-white placeholder:text-[#777] focus:outline-none focus:border-white">
+    <section class="max-w-7xl mx-auto px-4 py-12 md:py-16 reveal">
+      <div class="mb-8 flex flex-col md:flex-row md:items-end gap-3 md:gap-4">
+        <div class="flex-1">
+          <label for="searchInput" class="block text-sm text-[#bbbbbb] mb-2">Rechercher un produit</label>
+          <input id="searchInput" type="search" placeholder="Ex: hoodie, sneakers, casquette..." class="w-full md:max-w-md bg-black border border-[#333] px-4 py-3 text-white placeholder:text-[#777] focus:outline-none focus:border-white">
+        </div>
+        <button id="refreshProductsBtn" class="border border-[#333] text-white px-4 py-3 text-sm font-semibold hover:bg-white hover:text-black transition w-full md:w-auto">
+          Rafraîchir produits
+        </button>
       </div>
       <div id="sectionsContainer"></div>
     </section>
   </main>
 
   <!-- Footer -->
-  <footer id="contact" class="border-t border-[#222] py-10">
+  <footer id="contact" class="border-t border-[#222] py-10 reveal">
     <div class="max-w-7xl mx-auto px-4 grid gap-6 md:grid-cols-3 text-sm">
       <div>
         <h3 class="font-bold mb-2">MANDEM SHOP</h3>
@@ -199,7 +271,7 @@
   <!-- Modal paiement -->
   <div id="checkoutModal" class="fixed inset-0 z-[80] hidden items-center justify-center p-4">
     <div class="absolute inset-0 bg-black/80"></div>
-    <div class="relative w-full max-w-lg bg-black border border-[#333] p-5">
+    <div class="relative w-full max-w-lg border border-[#333] p-5 glass-panel">
       <div class="flex justify-between items-center mb-4">
         <h3 class="text-xl font-bold">Paiement</h3>
         <button id="closeCheckout" class="text-[#aaa] hover:text-white">✕</button>
@@ -262,7 +334,7 @@
   <!-- Modal aperçu produit -->
   <div id="quickViewModal" class="fixed inset-0 z-[85] hidden items-center justify-center p-4">
     <div id="quickViewBackdrop" class="absolute inset-0 bg-black/80"></div>
-    <div class="relative w-full max-w-2xl bg-black border border-[#333] p-4 md:p-5">
+    <div class="relative w-full max-w-2xl border border-[#333] p-4 md:p-5 glass-panel">
       <button id="quickViewCloseBtn" class="absolute top-3 right-3 text-[#aaa] hover:text-white">✕</button>
       <div class="grid md:grid-cols-2 gap-4">
         <img id="quickViewImage" src="" alt="Aperçu produit" class="w-full h-72 object-cover border border-[#222]">
@@ -295,7 +367,7 @@
   <script src="products.js"></script>
   <script>
     const PRODUCTS_STORAGE_KEY = "mandem_products";
-    const API_BASE = localStorage.getItem("mandem_api_base") || ((["localhost", "127.0.0.1"].includes(window.location.hostname)) ? "http://localhost:3000" : "");
+    const API_BASE = localStorage.getItem("mandem_api_base") || "";
     const USE_BACKEND = Boolean(API_BASE);
     const DEFAULT_PRODUCTS = window.MANDEM_PRODUCTS || [];
     const BASE_CATEGORIES = ["Vêtements", "Chaussures", "Sacs", "Accessoires"];
@@ -322,6 +394,15 @@
       return response.json();
     }
 
+    async function fetchProductsFromJson() {
+      const response = await fetch(`/data/products.json?ts=${Date.now()}`, { cache: "no-store" });
+      if (!response.ok) throw new Error("Impossible de charger products.json");
+      const data = await response.json();
+      if (Array.isArray(data)) return data;
+      if (data && Array.isArray(data.products)) return data.products;
+      return [];
+    }
+
     function generateOrderRef() {
       const ts = Date.now().toString().slice(-7);
       return `MS-LOCAL-${ts}`;
@@ -340,12 +421,14 @@
     const enableNotifBtn = document.getElementById("enableNotifBtn");
     const notifStatus = document.getElementById("notifStatus");
     const searchInput = document.getElementById("searchInput");
+    const refreshProductsBtn = document.getElementById("refreshProductsBtn");
     const logoTrigger = document.getElementById("logoTrigger");
     const BUSINESS_WHATSAPP = "221775111280";
     const mobileMenuBtn = document.getElementById("mobileMenuBtn");
     const mobileMenuOverlay = document.getElementById("mobileMenuOverlay");
     const mobileMenuPanel = document.getElementById("mobileMenuPanel");
     const mobileMenuClose = document.getElementById("mobileMenuClose");
+    const siteHeader = document.getElementById("siteHeader");
 
     let cart = JSON.parse(localStorage.getItem("nb_cart") || "[]");
     let searchQuery = "";
@@ -356,6 +439,20 @@
     function getProductImage(product) {
       if (product.images && product.images.length) return product.images[0];
       return product.image || "";
+    }
+
+    function normalizeText(value) {
+      return String(value || "").trim().toLowerCase();
+    }
+
+    function canonicalCategory(value) {
+      const v = normalizeText(value);
+      if (!v) return "Vêtements";
+      if (v.startsWith("v")) return "Vêtements";
+      if (v.startsWith("ch")) return "Chaussures";
+      if (v.startsWith("sa")) return "Sacs";
+      if (v.startsWith("acc")) return "Accessoires";
+      return String(value || "").trim() || "Vêtements";
     }
 
     function getImageForColor(product, color) {
@@ -391,13 +488,47 @@
       mobileMenuPanel.classList.add("-translate-x-full");
     }
 
+    function handleHeaderScroll() {
+      if (!siteHeader) return;
+      if (window.scrollY > 24) siteHeader.classList.add("nav-scrolled");
+      else siteHeader.classList.remove("nav-scrolled");
+    }
+
+    function setupReveal() {
+      const elements = document.querySelectorAll(".reveal");
+      if (!("IntersectionObserver" in window)) {
+        elements.forEach((el) => el.classList.add("is-visible"));
+        return;
+      }
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      elements.forEach((el) => observer.observe(el));
+    }
+
+    function setupParallax() {
+      const heroImage = document.querySelector(".hero-parallax");
+      if (!heroImage) return;
+      const onScroll = () => {
+        const offset = Math.min(window.scrollY * 0.2, 40);
+        heroImage.style.setProperty("--parallax", `${offset}px`);
+      };
+      onScroll();
+      window.addEventListener("scroll", onScroll, { passive: true });
+    }
+
 
     function renderProducts() {
       const normalizedQuery = searchQuery.trim().toLowerCase();
       const sectionsHtml = getCategories().map((cat) => {
         const id = cat.toLowerCase().replace("ê", "e").replace("è", "e").replace("é", "e");
         const list = products.filter((p) => {
-          if (p.category !== cat) return false;
+          if (normalizeText(p.category) !== normalizeText(cat)) return false;
           if (!normalizedQuery) return true;
           const text = `${p.name} ${p.category}`.toLowerCase();
           return text.includes(normalizedQuery);
@@ -407,20 +538,25 @@
 
         return `
           <section id="${id}" class="mb-14">
-            <h2 class="text-2xl md:text-3xl font-black mb-6">${cat}</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              ${list.map((p) => `
-                <article class="card-hover border border-[#222] bg-black overflow-hidden p-3">
-                  <div class="relative">
-                    <img src="${getProductImage(p)}" alt="${p.name}" data-preview-image="${p.id}" class="w-full h-64 object-cover cursor-pointer">
+            <h2 class="text-2xl md:text-3xl font-black italic tracking-tight mb-6">${cat}</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+              ${list.map((p, idx) => `
+                <article class="card-hover border border-[#222] bg-black overflow-hidden p-3 reveal reveal-stagger transition hover:-translate-y-2 hover:shadow-2xl" style="--delay:${Math.min(idx * 60, 360)}ms">
+                  <div class="relative aspect-[3/4] overflow-hidden">
+                    <img src="${getProductImage(p)}" alt="${p.name}" data-preview-image="${p.id}" class="w-full h-full object-cover cursor-pointer image-zoom">
                     ${p.badge ? `<span class="absolute top-3 left-3 text-xs px-2 py-1 ${p.badge === "Promo" ? "bg-[#6a1a1a]" : "bg-white text-black"}">${p.badge}</span>` : ""}
+                    <div class="hover-quick">Aperçu rapide</div>
+                    <div class="hover-actions gap-2">
+                      <button data-add="${p.id}" class="w-full max-w-[220px] border border-[#333] text-white py-2 font-semibold hover:bg-white hover:text-black transition btn-soft">Ajouter au panier</button>
+                      <button data-order="${p.id}" class="w-full max-w-[220px] bg-white text-black py-2 font-semibold hover:bg-[#e0e0e0] transition btn-soft btn-accent">Commander</button>
+                    </div>
                   </div>
                   <h3 data-preview-name="${p.id}" class="mt-3 font-semibold cursor-pointer hover:text-[#ddd]">${p.name}</h3>
                   <p class="text-[#cccccc] text-sm mt-1">${formatFCFA(p.price)}</p>
 
                   <div class="mt-4 grid grid-cols-2 gap-2">
-                    <button data-add="${p.id}" class="w-full border border-[#333] text-white py-2 font-semibold hover:bg-white hover:text-black transition">Ajouter au panier</button>
-                    <button data-order="${p.id}" class="w-full bg-white text-black py-2 font-semibold hover:bg-[#e0e0e0] transition">Commander</button>
+                    <button data-order="${p.id}" class="w-full bg-white text-black py-2 font-semibold hover:bg-[#e0e0e0] transition btn-soft btn-accent sm:hidden">Commander</button>
+                    <button data-add="${p.id}" class="w-full border border-[#333] text-white py-2 font-semibold hover:bg-white hover:text-black transition btn-soft sm:hidden">Ajouter au panier</button>
                   </div>
                 </article>
               `).join("")}
@@ -990,45 +1126,60 @@
         products = await fetchProductsFromApi();
         persistProductsLocalOnly();
       } catch (error) {
-        products = loadProductsFromStorage();
+        try {
+          products = await fetchProductsFromJson();
+          persistProductsLocalOnly();
+        } catch (err) {
+          products = loadProductsFromStorage();
+        }
       }
 
       renderProducts();
+      setupReveal();
       renderCart();
       updateNotifStatus();
-      refreshAdminSelect();
-      clearAdminForm();
     }
 
     searchInput.addEventListener("input", () => {
       searchQuery = searchInput.value;
       renderProducts();
+      setupReveal();
     });
 
-    let logoTapCount = 0;
-    let logoTapTimer;
+    if (refreshProductsBtn) {
+      refreshProductsBtn.addEventListener("click", async () => {
+        refreshProductsBtn.disabled = true;
+        refreshProductsBtn.classList.add("opacity-60", "cursor-not-allowed");
+        try {
+          const jsonProducts = await fetchProductsFromJson();
+          if (jsonProducts.length) {
+            products = jsonProducts;
+            persistProductsLocalOnly();
+            renderProducts();
+            setupReveal();
+          } else {
+            showToast("Aucun produit trouvé.");
+          }
+        } catch {
+          showToast("Impossible de recharger les produits.");
+        } finally {
+          refreshProductsBtn.disabled = false;
+          refreshProductsBtn.classList.remove("opacity-60", "cursor-not-allowed");
+        }
+      });
+    }
+
     logoTrigger.addEventListener("click", (event) => {
       event.preventDefault();
-      logoTapCount += 1;
-      clearTimeout(logoTapTimer);
-      logoTapTimer = setTimeout(() => {
-        logoTapCount = 0;
-      }, 1700);
-
-      if (logoTapCount >= 5) {
-        logoTapCount = 0;
-        const next = !isOwnerModeEnabled();
-        setOwnerMode(next);
-        showToast(next ? "Mode proprietaire active" : "Mode proprietaire desactive");
-      }
-
       window.location.hash = "accueil";
     });
 
-    setOwnerMode(isOwnerModeEnabled());
-
     initApp();
     trackPageView();
+    handleHeaderScroll();
+    setupReveal();
+    setupParallax();
+    window.addEventListener("scroll", handleHeaderScroll, { passive: true });
   </script>
   <script>
     // Enregistrement service worker PWA (scope racine)
