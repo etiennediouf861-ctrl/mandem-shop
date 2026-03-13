@@ -184,7 +184,46 @@
     </nav>
   </aside>
 
-  <main class="pt-16">
+  <!-- Coming Soon -->
+  <section id="comingSoon" class="fixed inset-0 z-[120] hidden items-center justify-center">
+    <div class="absolute inset-0 bg-black/80 backdrop-blur-lg"></div>
+    <div class="relative w-full h-full flex flex-col items-center justify-center px-6 text-center">
+      <video class="h-28 md:h-36 w-auto object-contain mb-6" autoplay muted loop playsinline preload="metadata" aria-label="Logo MANDEM SHOP">
+        <source src="images/logo.mp4" type="video/mp4">
+      </video>
+      <p class="label-uppercase text-[#bbbbbb] mb-3">Bientôt disponible</p>
+      <h1 class="title-font text-3xl md:text-5xl lg:text-6xl">MANDEM SHOP</h1>
+      <p class="text-[#cccccc] mt-4 max-w-xl">Le site arrive. Restez connectés.</p>
+
+      <div class="mt-8 grid grid-cols-4 gap-3 text-white">
+        <div class="border border-[#333] px-4 py-3">
+          <div id="csDays" class="text-2xl font-bold">30</div>
+          <div class="text-[10px] uppercase tracking-[0.3em] text-[#aaa]">Jours</div>
+        </div>
+        <div class="border border-[#333] px-4 py-3">
+          <div id="csHours" class="text-2xl font-bold">00</div>
+          <div class="text-[10px] uppercase tracking-[0.3em] text-[#aaa]">Heures</div>
+        </div>
+        <div class="border border-[#333] px-4 py-3">
+          <div id="csMinutes" class="text-2xl font-bold">00</div>
+          <div class="text-[10px] uppercase tracking-[0.3em] text-[#aaa]">Minutes</div>
+        </div>
+        <div class="border border-[#333] px-4 py-3">
+          <div id="csSeconds" class="text-2xl font-bold">00</div>
+          <div class="text-[10px] uppercase tracking-[0.3em] text-[#aaa]">Secondes</div>
+        </div>
+      </div>
+
+      <div class="absolute bottom-8 left-0 right-0 flex items-center justify-center gap-4 text-[#cccccc]">
+        <a href="https://www.instagram.com/mandem.sn?igsh=MTk4YWN0Z2ZsN2Vjdw%3D%3D" target="_blank" rel="noopener noreferrer" class="border border-[#333] px-3 py-2 hover:bg-white hover:text-black transition">Instagram</a>
+        <a href="https://snapchat.com/t/NrWyidui" target="_blank" rel="noopener noreferrer" class="border border-[#333] px-3 py-2 hover:bg-white hover:text-black transition">Snapchat</a>
+        <a href="https://www.tiktok.com/@mandem.sn?_r=1&_t=ZN-94CbVu4k8ak" target="_blank" rel="noopener noreferrer" class="border border-[#333] px-3 py-2 hover:bg-white hover:text-black transition">TikTok</a>
+        <a href="https://wa.me/221775111280" target="_blank" rel="noopener noreferrer" class="border border-[#333] px-3 py-2 hover:bg-white hover:text-black transition">WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <main id="siteContent" class="pt-16">
     <!-- Hero -->
     <section id="accueil" class="relative min-h-[70vh] md:min-h-[85vh] flex items-center">
       <img src="images/bg-mandem.png" alt="Background MANDEM SHOP" class="hero-parallax absolute inset-0 w-full h-full object-contain scale-110 opacity-55 pointer-events-none select-none">
@@ -1190,6 +1229,50 @@
       window.location.hash = "accueil";
     });
 
+    // Coming soon toggle (set to false to show the shop)
+    const COMING_SOON_ENABLED = true;
+    const COMING_SOON_DAYS = 30;
+
+    function startComingSoonCountdown() {
+      const comingSoon = document.getElementById("comingSoon");
+      const siteContent = document.getElementById("siteContent");
+      if (!COMING_SOON_ENABLED) {
+        comingSoon.classList.add("hidden");
+        if (siteContent) siteContent.classList.remove("blur-sm");
+        return;
+      }
+
+      if (siteContent) siteContent.classList.add("blur-sm");
+      comingSoon.classList.remove("hidden");
+      comingSoon.classList.add("flex");
+
+      const start = Date.now();
+      const duration = COMING_SOON_DAYS * 24 * 60 * 60 * 1000;
+      const end = start + duration;
+
+      const daysEl = document.getElementById("csDays");
+      const hoursEl = document.getElementById("csHours");
+      const minutesEl = document.getElementById("csMinutes");
+      const secondsEl = document.getElementById("csSeconds");
+
+      const tick = () => {
+        const now = Date.now();
+        const remaining = Math.max(0, end - now);
+        const days = Math.floor(remaining / (24 * 60 * 60 * 1000));
+        const hours = Math.floor((remaining / (60 * 60 * 1000)) % 24);
+        const minutes = Math.floor((remaining / (60 * 1000)) % 60);
+        const seconds = Math.floor((remaining / 1000) % 60);
+
+        daysEl.textContent = String(days).padStart(2, "0");
+        hoursEl.textContent = String(hours).padStart(2, "0");
+        minutesEl.textContent = String(minutes).padStart(2, "0");
+        secondsEl.textContent = String(seconds).padStart(2, "0");
+      };
+      tick();
+      setInterval(tick, 1000);
+    }
+
+    startComingSoonCountdown();
     initApp();
     trackPageView();
     handleHeaderScroll();
