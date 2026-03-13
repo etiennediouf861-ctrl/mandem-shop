@@ -188,7 +188,7 @@
   <section id="comingSoon" class="fixed inset-0 z-[120] hidden items-center justify-center">
     <div class="absolute inset-0 bg-black"></div>
     <div class="relative w-full h-full flex flex-col items-center justify-center px-6 text-center">
-      <video class="h-36 md:h-44 w-auto object-contain mb-6" autoplay muted loop playsinline preload="metadata" aria-label="Logo MANDEM SHOP">
+      <video id="comingSoonLogo" class="h-36 md:h-44 w-auto object-contain mb-6" autoplay muted loop playsinline preload="auto" aria-label="Logo MANDEM SHOP">
         <source src="images/logo.mp4" type="video/mp4">
       </video>
       <p class="label-uppercase text-[#bbbbbb] mb-3">Bientôt disponible</p>
@@ -1281,6 +1281,14 @@
     }
 
     startComingSoonCountdown();
+    const comingSoonLogo = document.getElementById("comingSoonLogo");
+    if (comingSoonLogo) {
+      comingSoonLogo.addEventListener("ended", () => {
+        comingSoonLogo.currentTime = 0;
+        comingSoonLogo.play().catch(() => {});
+      });
+      comingSoonLogo.play().catch(() => {});
+    }
     initApp();
     trackPageView();
     handleHeaderScroll();
