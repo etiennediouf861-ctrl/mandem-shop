@@ -145,12 +145,59 @@
         <span class="block w-5 h-[2px] bg-white mb-1"></span>
         <span class="block w-5 h-[2px] bg-white"></span>
       </button>
-      <nav class="hidden md:flex items-center gap-6 text-sm text-[#cccccc]">
-        <a href="#accueil" class="hover:text-white">Accueil</a>
-        <a href="#vetements" class="hover:text-white">Vêtements</a>
-        <a href="#chaussures" class="hover:text-white">Chaussures</a>
-        <a href="#sacs" class="hover:text-white">Sacs</a>
-        <a href="#accessoires" class="hover:text-white">Accessoires</a>
+      <nav class="hidden md:flex items-center gap-6 text-xs uppercase tracking-widest text-[#cccccc]">
+        <div class="relative group">
+          <button class="hover:text-white flex items-center gap-1">Nouveautés ▾</button>
+          <div class="absolute left-0 mt-3 w-52 border border-[#333] bg-black/95 backdrop-blur p-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition">
+            <a href="#accueil" class="block py-1 hover:text-white">Nouveautés</a>
+          </div>
+        </div>
+        <div class="relative group">
+          <button class="hover:text-white flex items-center gap-1">Marque ▾</button>
+          <div class="absolute left-0 mt-3 w-56 border border-[#333] bg-black/95 backdrop-blur p-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition">
+            <a href="#vetements" class="block py-1 hover:text-white">Bape</a>
+            <a href="#vetements" class="block py-1 hover:text-white">Trapstar</a>
+            <a href="#vetements" class="block py-1 hover:text-white">Corteiz</a>
+            <a href="#vetements" class="block py-1 hover:text-white">Syna World</a>
+            <a href="#vetements" class="block py-1 hover:text-white">Gucci</a>
+            <a href="#vetements" class="block py-1 hover:text-white">LV</a>
+          </div>
+        </div>
+        <div class="relative group">
+          <button class="hover:text-white flex items-center gap-1">Vêtements ▾</button>
+          <div class="absolute left-0 mt-3 w-64 border border-[#333] bg-black/95 backdrop-blur p-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition">
+            <a href="#vetements" class="block py-1 hover:text-white">T-shirts</a>
+            <a href="#vetements" class="block py-1 hover:text-white">Hauts</a>
+            <a href="#vetements" class="block py-1 hover:text-white">Chemises</a>
+            <a href="#vetements" class="block py-1 hover:text-white">Sweats</a>
+            <a href="#vetements" class="block py-1 hover:text-white">Tricots</a>
+            <a href="#vetements" class="block py-1 hover:text-white">Manteaux et vestes</a>
+            <a href="#vetements" class="block py-1 hover:text-white">Shorts</a>
+            <a href="#vetements" class="block py-1 hover:text-white">Pantalon</a>
+            <a href="#vetements" class="block py-1 hover:text-white">Ensembles</a>
+            <a href="#vetements" class="block py-1 hover:text-white">Sous-vêtement</a>
+          </div>
+        </div>
+        <div class="relative group">
+          <button class="hover:text-white flex items-center gap-1">Chaussures ▾</button>
+          <div class="absolute left-0 mt-3 w-48 border border-[#333] bg-black/95 backdrop-blur p-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition">
+            <a href="#chaussures" class="block py-1 hover:text-white">Chaussures</a>
+          </div>
+        </div>
+        <div class="relative group">
+          <button class="hover:text-white flex items-center gap-1">Sacs ▾</button>
+          <div class="absolute left-0 mt-3 w-48 border border-[#333] bg-black/95 backdrop-blur p-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition">
+            <a href="#sacs" class="block py-1 hover:text-white">Sacs</a>
+          </div>
+        </div>
+        <div class="relative group">
+          <button class="hover:text-white flex items-center gap-1">Accessoires ▾</button>
+          <div class="absolute left-0 mt-3 w-52 border border-[#333] bg-black/95 backdrop-blur p-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition">
+            <a href="#accessoires" class="block py-1 hover:text-white">Montres</a>
+            <a href="#accessoires" class="block py-1 hover:text-white">Chapeaux</a>
+            <a href="#accessoires" class="block py-1 hover:text-white">Lunettes</a>
+          </div>
+        </div>
         <a href="#contact" class="hover:text-white">Contact</a>
       </nav>
       <a id="logoTrigger" href="#accueil" class="absolute left-1/2 -translate-x-1/2 flex items-center">
@@ -174,12 +221,53 @@
       <span class="text-sm text-[#aaa]">Menu</span>
       <button id="mobileMenuClose" class="text-[#aaa] hover:text-white">✕</button>
     </div>
-    <nav class="p-4 flex flex-col gap-3 text-sm text-[#cccccc]">
-      <a data-mobile-link href="#accueil" class="hover:text-white">Accueil</a>
-      <a data-mobile-link href="#vetements" class="hover:text-white">Vêtements</a>
-      <a data-mobile-link href="#chaussures" class="hover:text-white">Chaussures</a>
-      <a data-mobile-link href="#sacs" class="hover:text-white">Sacs</a>
-      <a data-mobile-link href="#accessoires" class="hover:text-white">Accessoires</a>
+    <nav class="p-4 flex flex-col gap-4 text-sm text-[#cccccc]">
+      <div>
+        <p class="text-xs uppercase tracking-widest text-[#888] mb-2">Nouveautés</p>
+        <a data-mobile-link href="#accueil" class="hover:text-white">Nouveautés</a>
+      </div>
+      <div>
+        <p class="text-xs uppercase tracking-widest text-[#888] mb-2">Marque</p>
+        <div class="flex flex-col gap-2">
+          <a data-mobile-link href="#vetements" class="hover:text-white">Bape</a>
+          <a data-mobile-link href="#vetements" class="hover:text-white">Trapstar</a>
+          <a data-mobile-link href="#vetements" class="hover:text-white">Corteiz</a>
+          <a data-mobile-link href="#vetements" class="hover:text-white">Syna World</a>
+          <a data-mobile-link href="#vetements" class="hover:text-white">Gucci</a>
+          <a data-mobile-link href="#vetements" class="hover:text-white">LV</a>
+        </div>
+      </div>
+      <div>
+        <p class="text-xs uppercase tracking-widest text-[#888] mb-2">Vêtements</p>
+        <div class="flex flex-col gap-2">
+          <a data-mobile-link href="#vetements" class="hover:text-white">T-shirts</a>
+          <a data-mobile-link href="#vetements" class="hover:text-white">Hauts</a>
+          <a data-mobile-link href="#vetements" class="hover:text-white">Chemises</a>
+          <a data-mobile-link href="#vetements" class="hover:text-white">Sweats</a>
+          <a data-mobile-link href="#vetements" class="hover:text-white">Tricots</a>
+          <a data-mobile-link href="#vetements" class="hover:text-white">Manteaux et vestes</a>
+          <a data-mobile-link href="#vetements" class="hover:text-white">Shorts</a>
+          <a data-mobile-link href="#vetements" class="hover:text-white">Pantalon</a>
+          <a data-mobile-link href="#vetements" class="hover:text-white">Ensembles</a>
+          <a data-mobile-link href="#vetements" class="hover:text-white">Sous-vêtement</a>
+        </div>
+      </div>
+      <div>
+        <p class="text-xs uppercase tracking-widest text-[#888] mb-2">Chaussures</p>
+        <a data-mobile-link href="#chaussures" class="hover:text-white">Chaussures</a>
+      </div>
+      <div>
+        <p class="text-xs uppercase tracking-widest text-[#888] mb-2">Sacs</p>
+        <a data-mobile-link href="#sacs" class="hover:text-white">Sacs</a>
+      </div>
+      <div>
+        <p class="text-xs uppercase tracking-widest text-[#888] mb-2">Accessoires</p>
+        <div class="flex flex-col gap-2">
+          <a data-mobile-link href="#accessoires" class="hover:text-white">Montres</a>
+          <a data-mobile-link href="#accessoires" class="hover:text-white">Chapeaux</a>
+          <a data-mobile-link href="#accessoires" class="hover:text-white">Lunettes</a>
+        </div>
+      </div>
       <a data-mobile-link href="#contact" class="hover:text-white">Contact</a>
     </nav>
   </aside>
