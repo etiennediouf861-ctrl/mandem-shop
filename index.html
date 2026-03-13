@@ -1457,9 +1457,15 @@
     const comingSoonLogo = document.getElementById("comingSoonLogo");
     const comingSoonLogoFallback = document.getElementById("comingSoonLogoFallback");
     if (comingSoonLogo) {
+      const tryPlayLogo = () => {
+        comingSoonLogo.muted = true;
+        comingSoonLogo.playsInline = true;
+        comingSoonLogo.loop = true;
+        comingSoonLogo.play().catch(() => {});
+      };
       comingSoonLogo.addEventListener("ended", () => {
         comingSoonLogo.currentTime = 0;
-        comingSoonLogo.play().catch(() => {});
+        tryPlayLogo();
       });
       comingSoonLogo.addEventListener("error", () => {
         if (comingSoonLogoFallback) {
@@ -1473,7 +1479,13 @@
           comingSoonLogoFallback.classList.remove("hidden");
         }
       });
-      comingSoonLogo.play().catch(() => {});
+      tryPlayLogo();
+      const resumeOnUser = () => tryPlayLogo();
+      window.addEventListener("touchstart", resumeOnUser, { once: true, passive: true });
+      window.addEventListener("click", resumeOnUser, { once: true });
+      document.addEventListener("visibilitychange", () => {
+        if (!document.hidden) tryPlayLogo();
+      });
     }
     initApp();
     trackPageView();
