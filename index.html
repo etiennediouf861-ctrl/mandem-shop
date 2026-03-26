@@ -748,7 +748,7 @@
                       <button data-order="${p.id}" class="w-full max-w-[220px] bg-white text-black py-2 font-semibold hover:bg-[#e0e0e0] transition btn-soft btn-accent">Commander</button>
                     </div>
                   </div>
-                  <p class="tag-pill mt-4">${p.category || "Collection"}</p>
+                  <p class="tag-pill mt-4">${p.subcategory || p.brand || p.category || "Collection"}</p>
                   <h3 data-preview-name="${p.id}" class="mt-2 font-semibold cursor-pointer hover:text-[#ddd]">${p.name}</h3>
                   <div class="mt-3 flex items-center justify-between">
                     <span class="text-[#bdbdbd] text-sm">Prix</span>
