@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MANDEM SHOP - Boutique Streetwear</title>
-  <meta name="description" content="MANDEM SHOP: boutique streetwear à Dakar. Commande WhatsApp, livraison rapide." />
+  <meta name="description" content="MANDEM SHOP: boutique streetwear à Dakar. Paiement sécurisé PayTech, livraison rapide." />
   <meta property="og:title" content="MANDEM SHOP" />
   <meta property="og:description" content="Streetwear premium - Dakar & diaspora." />
   <meta property="og:type" content="website" />
@@ -132,9 +132,6 @@
     .section-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(255,255,255,0.2), transparent); }
     .price-pill { display: inline-flex; align-items: center; padding: 6px 10px; border: 1px solid #2b2b2b; border-radius: 999px; font-size: 12px; font-weight: 700; color: #f5f5f5; background: #0b0b0b; }
     .tag-pill { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; font-weight: 800; color: #bcbcbc; }
-    .dropdown { position: relative; }
-    .dropdown-menu { opacity: 0; visibility: hidden; transform: translateY(6px); transition: opacity .25s ease, transform .25s ease, visibility .25s ease; }
-    .dropdown.open .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
   </style>
 </head>
 <body class="bg-black text-white">
@@ -149,9 +146,15 @@
         <span class="block w-5 h-[2px] bg-white"></span>
       </button>
       <nav class="hidden md:flex items-center gap-6 text-xs uppercase tracking-widest text-[#cccccc]">
-        <div class="dropdown">
-          <button type="button" class="hover:text-white flex items-center gap-1" data-dropdown-toggle>Marque ▾</button>
-          <div class="dropdown-menu absolute left-0 mt-3 w-56 border border-[#333] bg-black/95 backdrop-blur p-3">
+        <div class="relative group">
+          <button class="hover:text-white flex items-center gap-1">Nouveautés ▾</button>
+          <div class="absolute left-0 mt-3 w-52 border border-[#333] bg-black/95 backdrop-blur p-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition">
+            <a href="#accueil" class="block py-1 hover:text-white" data-filter="category" data-value="Nouveautés">Nouveautés</a>
+          </div>
+        </div>
+        <div class="relative group">
+          <button class="hover:text-white flex items-center gap-1">Marque ▾</button>
+          <div class="absolute left-0 mt-3 w-56 border border-[#333] bg-black/95 backdrop-blur p-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition">
             <a href="#vetements" class="block py-1 hover:text-white" data-filter="brand" data-value="Bape">Bape</a>
             <a href="#vetements" class="block py-1 hover:text-white" data-filter="brand" data-value="Trapstar">Trapstar</a>
             <a href="#vetements" class="block py-1 hover:text-white" data-filter="brand" data-value="Corteiz">Corteiz</a>
@@ -160,59 +163,54 @@
             <a href="#vetements" class="block py-1 hover:text-white" data-filter="brand" data-value="LV">LV</a>
           </div>
         </div>
-        <div class="dropdown">
-          <button type="button" class="hover:text-white flex items-center gap-1" data-dropdown-toggle>Vêtements ▾</button>
-          <div class="dropdown-menu absolute left-0 mt-3 w-64 border border-[#333] bg-black/95 backdrop-blur p-3">
-            <a href="#vetements" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Vêtements" data-value="Syna World">Syna World</a>
-            <a href="#vetements" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Vêtements" data-value="Trapstar">Trapstar</a>
-            <a href="#vetements" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Vêtements" data-value="Cortiez">Cortiez</a>
-            <a href="#vetements" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Vêtements" data-value="Burberry">Burberry</a>
-            <a href="#vetements" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Vêtements" data-value="NOCTA">NOCTA</a>
+        <div class="relative group">
+          <button class="hover:text-white flex items-center gap-1">Vêtements ▾</button>
+          <div class="absolute left-0 mt-3 w-64 border border-[#333] bg-black/95 backdrop-blur p-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition">
+            <a href="#vetements" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Vêtements" data-value="T-shirts">T-shirts</a>
+            <a href="#vetements" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Vêtements" data-value="Hauts">Hauts</a>
+            <a href="#vetements" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Vêtements" data-value="Chemises">Chemises</a>
+            <a href="#vetements" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Vêtements" data-value="Sweats">Sweats</a>
+            <a href="#vetements" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Vêtements" data-value="Tricots">Tricots</a>
+            <a href="#vetements" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Vêtements" data-value="Manteaux et vestes">Manteaux et vestes</a>
+            <a href="#vetements" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Vêtements" data-value="Shorts">Shorts</a>
+            <a href="#vetements" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Vêtements" data-value="Pantalon">Pantalon</a>
+            <a href="#vetements" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Vêtements" data-value="Ensembles">Ensembles</a>
+            <a href="#vetements" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Vêtements" data-value="Sous-vêtement">Sous-vêtement</a>
           </div>
         </div>
-        <div class="dropdown">
-          <button type="button" class="hover:text-white flex items-center gap-1" data-dropdown-toggle>Chaussures ▾</button>
-          <div class="dropdown-menu absolute left-0 mt-3 w-48 border border-[#333] bg-black/95 backdrop-blur p-3">
-            <a href="#chaussures" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Chaussures" data-value="Burberry">Burberry</a>
-            <a href="#chaussures" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Chaussures" data-value="Crocs">Crocs</a>
-            <a href="#chaussures" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Chaussures" data-value="Prada">Prada</a>
+        <div class="relative group">
+          <button class="hover:text-white flex items-center gap-1">Chaussures ▾</button>
+          <div class="absolute left-0 mt-3 w-48 border border-[#333] bg-black/95 backdrop-blur p-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition">
+            <a href="#chaussures" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Chaussures" data-value="Chaussures">Chaussures</a>
           </div>
         </div>
-        <div class="dropdown">
-          <button type="button" class="hover:text-white flex items-center gap-1" data-dropdown-toggle>Sacs ▾</button>
-          <div class="dropdown-menu absolute left-0 mt-3 w-48 border border-[#333] bg-black/95 backdrop-blur p-3">
-            <a href="#sacs" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Sacs" data-value="Trapstar">Trapstar</a>
-            <a href="#sacs" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Sacs" data-value="Burberry">Burberry</a>
-            <a href="#sacs" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Sacs" data-value="Prada">Prada</a>
-            <a href="#sacs" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Sacs" data-value="Goyard">Goyard</a>
+        <div class="relative group">
+          <button class="hover:text-white flex items-center gap-1">Sacs ▾</button>
+          <div class="absolute left-0 mt-3 w-48 border border-[#333] bg-black/95 backdrop-blur p-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition">
+            <a href="#sacs" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Sacs" data-value="Sacs">Sacs</a>
           </div>
         </div>
-        <div class="dropdown">
-          <button type="button" class="hover:text-white flex items-center gap-1" data-dropdown-toggle>Accessoires ▾</button>
-          <div class="dropdown-menu absolute left-0 mt-3 w-52 border border-[#333] bg-black/95 backdrop-blur p-3">
-            <a href="#accessoires" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Accessoires" data-value="Syna World">Syna World</a>
-            <a href="#accessoires" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Accessoires" data-value="Burberry">Burberry</a>
-            <a href="#accessoires" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Accessoires" data-value="Lacoste">Lacoste</a>
-            <a href="#accessoires" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Accessoires" data-value="Lunettes chrome">Lunettes chrome</a>
-            <a href="#accessoires" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Accessoires" data-value="Prada">Prada</a>
-            <a href="#accessoires" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Accessoires" data-value="Nike pro">Nike pro</a>
+        <div class="relative group">
+          <button class="hover:text-white flex items-center gap-1">Accessoires ▾</button>
+          <div class="absolute left-0 mt-3 w-52 border border-[#333] bg-black/95 backdrop-blur p-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition">
+            <a href="#accessoires" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Accessoires" data-value="Montres">Montres</a>
+            <a href="#accessoires" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Accessoires" data-value="Chapeaux">Chapeaux</a>
+            <a href="#accessoires" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Accessoires" data-value="Lunettes">Lunettes</a>
           </div>
         </div>
+        <a href="#contact" class="hover:text-white">Contact</a>
       </nav>
       <a id="logoTrigger" href="#accueil" class="absolute left-1/2 -translate-x-1/2 flex items-center">
       <video class="h-16 md:h-20 w-auto max-w-[220px] md:max-w-[280px] object-contain logo-float" autoplay muted loop playsinline preload="metadata" aria-label="Logo MANDEM SHOP">
           <source src="images/logo.mp4" type="video/mp4">
         </video>
       </a>
-      <div class="flex items-center gap-3">
-        <a href="#contact" class="hidden md:inline-flex items-center text-xs uppercase tracking-widest text-[#cccccc] hover:text-white border border-[#333] px-3 py-1.5 transition btn-soft">Contact</a>
-        <button id="openCartBtn" class="relative border border-[#333] p-2 hover:bg-white hover:text-black transition btn-soft" aria-label="Ouvrir le panier">
+      <button id="openCartBtn" class="relative border border-[#333] p-2 hover:bg-white hover:text-black transition btn-soft" aria-label="Ouvrir le panier">
         <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current" aria-hidden="true">
           <path d="M7 6h-2l-1 2v2h2l2.2 6.5c.2.6.8 1 1.4 1h8.8c.6 0 1.2-.4 1.4-1l2.2-6.5h2V8l-1-2h-2M7 6h10l1 2H6l1-2Zm2.4 12h8.2l1.6-5H7.8l1.6 5ZM9 20a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm8 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/>
         </svg>
         <span id="cartCount" class="absolute -top-2 -right-2 text-[10px] bg-[#8b0000] text-white rounded-full min-w-[18px] h-[18px] grid place-content-center px-1">0</span>
-        </button>
-      </div>
+      </button>
     </div>
   </header>
 
@@ -224,6 +222,10 @@
       <button id="mobileMenuClose" class="text-[#aaa] hover:text-white">✕</button>
     </div>
     <nav class="p-4 flex flex-col gap-4 text-sm text-[#cccccc]">
+      <div>
+        <p class="text-xs uppercase tracking-widest text-[#888] mb-2">Nouveautés</p>
+        <a data-mobile-link href="#accueil" class="hover:text-white" data-filter="category" data-value="Nouveautés">Nouveautés</a>
+      </div>
       <div>
         <p class="text-xs uppercase tracking-widest text-[#888] mb-2">Marque</p>
         <div class="flex flex-col gap-2">
@@ -238,39 +240,32 @@
       <div>
         <p class="text-xs uppercase tracking-widest text-[#888] mb-2">Vêtements</p>
         <div class="flex flex-col gap-2">
-          <a data-mobile-link href="#vetements" class="hover:text-white" data-filter="subcategory" data-category="Vêtements" data-value="Syna World">Syna World</a>
-          <a data-mobile-link href="#vetements" class="hover:text-white" data-filter="subcategory" data-category="Vêtements" data-value="Trapstar">Trapstar</a>
-          <a data-mobile-link href="#vetements" class="hover:text-white" data-filter="subcategory" data-category="Vêtements" data-value="Cortiez">Cortiez</a>
-          <a data-mobile-link href="#vetements" class="hover:text-white" data-filter="subcategory" data-category="Vêtements" data-value="Burberry">Burberry</a>
-          <a data-mobile-link href="#vetements" class="hover:text-white" data-filter="subcategory" data-category="Vêtements" data-value="NOCTA">NOCTA</a>
+          <a data-mobile-link href="#vetements" class="hover:text-white" data-filter="subcategory" data-category="Vêtements" data-value="T-shirts">T-shirts</a>
+          <a data-mobile-link href="#vetements" class="hover:text-white" data-filter="subcategory" data-category="Vêtements" data-value="Hauts">Hauts</a>
+          <a data-mobile-link href="#vetements" class="hover:text-white" data-filter="subcategory" data-category="Vêtements" data-value="Chemises">Chemises</a>
+          <a data-mobile-link href="#vetements" class="hover:text-white" data-filter="subcategory" data-category="Vêtements" data-value="Sweats">Sweats</a>
+          <a data-mobile-link href="#vetements" class="hover:text-white" data-filter="subcategory" data-category="Vêtements" data-value="Tricots">Tricots</a>
+          <a data-mobile-link href="#vetements" class="hover:text-white" data-filter="subcategory" data-category="Vêtements" data-value="Manteaux et vestes">Manteaux et vestes</a>
+          <a data-mobile-link href="#vetements" class="hover:text-white" data-filter="subcategory" data-category="Vêtements" data-value="Shorts">Shorts</a>
+          <a data-mobile-link href="#vetements" class="hover:text-white" data-filter="subcategory" data-category="Vêtements" data-value="Pantalon">Pantalon</a>
+          <a data-mobile-link href="#vetements" class="hover:text-white" data-filter="subcategory" data-category="Vêtements" data-value="Ensembles">Ensembles</a>
+          <a data-mobile-link href="#vetements" class="hover:text-white" data-filter="subcategory" data-category="Vêtements" data-value="Sous-vêtement">Sous-vêtement</a>
         </div>
       </div>
       <div>
         <p class="text-xs uppercase tracking-widest text-[#888] mb-2">Chaussures</p>
-        <div class="flex flex-col gap-2">
-          <a data-mobile-link href="#chaussures" class="hover:text-white" data-filter="subcategory" data-category="Chaussures" data-value="Burberry">Burberry</a>
-          <a data-mobile-link href="#chaussures" class="hover:text-white" data-filter="subcategory" data-category="Chaussures" data-value="Crocs">Crocs</a>
-          <a data-mobile-link href="#chaussures" class="hover:text-white" data-filter="subcategory" data-category="Chaussures" data-value="Prada">Prada</a>
-        </div>
+        <a data-mobile-link href="#chaussures" class="hover:text-white" data-filter="subcategory" data-category="Chaussures" data-value="Chaussures">Chaussures</a>
       </div>
       <div>
         <p class="text-xs uppercase tracking-widest text-[#888] mb-2">Sacs</p>
-        <div class="flex flex-col gap-2">
-          <a data-mobile-link href="#sacs" class="hover:text-white" data-filter="subcategory" data-category="Sacs" data-value="Trapstar">Trapstar</a>
-          <a data-mobile-link href="#sacs" class="hover:text-white" data-filter="subcategory" data-category="Sacs" data-value="Burberry">Burberry</a>
-          <a data-mobile-link href="#sacs" class="hover:text-white" data-filter="subcategory" data-category="Sacs" data-value="Prada">Prada</a>
-          <a data-mobile-link href="#sacs" class="hover:text-white" data-filter="subcategory" data-category="Sacs" data-value="Goyard">Goyard</a>
-        </div>
+        <a data-mobile-link href="#sacs" class="hover:text-white" data-filter="subcategory" data-category="Sacs" data-value="Sacs">Sacs</a>
       </div>
       <div>
         <p class="text-xs uppercase tracking-widest text-[#888] mb-2">Accessoires</p>
         <div class="flex flex-col gap-2">
-          <a data-mobile-link href="#accessoires" class="hover:text-white" data-filter="subcategory" data-category="Accessoires" data-value="Syna World">Syna World</a>
-          <a data-mobile-link href="#accessoires" class="hover:text-white" data-filter="subcategory" data-category="Accessoires" data-value="Burberry">Burberry</a>
-          <a data-mobile-link href="#accessoires" class="hover:text-white" data-filter="subcategory" data-category="Accessoires" data-value="Lacoste">Lacoste</a>
-          <a data-mobile-link href="#accessoires" class="hover:text-white" data-filter="subcategory" data-category="Accessoires" data-value="Lunettes chrome">Lunettes chrome</a>
-          <a data-mobile-link href="#accessoires" class="hover:text-white" data-filter="subcategory" data-category="Accessoires" data-value="Prada">Prada</a>
-          <a data-mobile-link href="#accessoires" class="hover:text-white" data-filter="subcategory" data-category="Accessoires" data-value="Nike pro">Nike pro</a>
+          <a data-mobile-link href="#accessoires" class="hover:text-white" data-filter="subcategory" data-category="Accessoires" data-value="Montres">Montres</a>
+          <a data-mobile-link href="#accessoires" class="hover:text-white" data-filter="subcategory" data-category="Accessoires" data-value="Chapeaux">Chapeaux</a>
+          <a data-mobile-link href="#accessoires" class="hover:text-white" data-filter="subcategory" data-category="Accessoires" data-value="Lunettes">Lunettes</a>
         </div>
       </div>
       <a data-mobile-link href="#contact" class="hover:text-white">Contact</a>
@@ -347,6 +342,9 @@
           <label for="searchInput" class="block text-sm text-[#bbbbbb] mb-2">Rechercher un produit</label>
           <input id="searchInput" type="search" placeholder="Ex: hoodie, sneakers, casquette..." class="w-full md:max-w-md bg-black border border-[#333] px-4 py-3 text-white placeholder:text-[#777] focus:outline-none focus:border-white">
         </div>
+        <button id="refreshProductsBtn" class="border border-[#333] text-white px-4 py-3 text-sm font-semibold hover:bg-white hover:text-black transition w-full md:w-auto">
+          Rafraîchir produits
+        </button>
       </div>
       <div id="activeFilter" class="hidden mb-6 text-xs uppercase tracking-widest text-[#bdbdbd]">
         Filtre: <span id="activeFilterLabel"></span>
@@ -429,7 +427,24 @@
         <h3 class="text-xl font-bold">Paiement</h3>
         <button id="closeCheckout" class="text-[#aaa] hover:text-white">✕</button>
       </div>
-      <p class="text-sm text-[#bbbbbb] mb-4">Finalisez votre commande. Nous confirmons ensuite par WhatsApp.</p>
+      <p class="text-sm text-[#bbbbbb] mb-4">Choisissez votre mode de paiement pour finaliser la commande.</p>
+
+      <div class="space-y-3 mb-4">
+        <label class="flex items-start gap-3 border border-[#333] p-3 cursor-pointer">
+          <input type="radio" name="paymentMethod" value="paytech" checked class="mt-1">
+          <span>
+            <strong>PayTech.sn (Wave / Orange Money / Free Money)</strong><br>
+            <small class="text-[#aaaaaa]">Vous serez redirigé vers PayTech pour un paiement sécurisé.</small>
+          </span>
+        </label>
+        <label class="flex items-start gap-3 border border-[#333] p-3 cursor-pointer">
+          <input type="radio" name="paymentMethod" value="delivery" class="mt-1">
+          <span>
+            <strong>Paiement à la livraison</strong><br>
+            <small class="text-[#aaaaaa]">Réglez en cash à la réception.</small>
+          </span>
+        </label>
+      </div>
 
       <div class="mb-4 space-y-2">
         <label class="block text-sm text-[#cccccc] mb-1">Nom complet (obligatoire)</label>
@@ -439,13 +454,31 @@
       </div>
 
       <div id="phoneWrap" class="mb-4">
+        <label class="block text-sm text-[#cccccc] mb-2">Opérateur Mobile Money</label>
+        <div id="operatorWrap" class="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-3">
+          <label class="border border-[#333] p-2 text-sm cursor-pointer flex items-center gap-2">
+            <input type="radio" name="mmOperator" value="Wave" checked>
+            <img src="images/wave-logo.svg" alt="Wave" class="h-5 w-auto" />
+            <span>Wave</span>
+          </label>
+          <label class="border border-[#333] p-2 text-sm cursor-pointer flex items-center gap-2">
+            <input type="radio" name="mmOperator" value="Orange Money">
+            <img src="images/orange-money-logo.svg" alt="Orange Money" class="h-5 w-auto" />
+            <span>Orange Money</span>
+          </label>
+          <label class="border border-[#333] p-2 text-sm cursor-pointer flex items-center gap-2">
+            <input type="radio" name="mmOperator" value="Free Money">
+            <span class="inline-flex h-5 min-w-[34px] items-center justify-center rounded border border-[#555] px-1 text-[10px] font-semibold tracking-wide">FREE</span>
+            <span>Free Money</span>
+          </label>
+        </div>
         <label class="block text-sm text-[#cccccc] mb-1">Numéro téléphone (obligatoire)</label>
         <input id="phoneInput" type="tel" placeholder="Ex: 77 123 45 67" required class="w-full bg-black border border-[#333] p-3 text-white focus:outline-none focus:border-white">
         <p id="phoneHelp" class="text-xs text-[#888] mt-1">Format Sénégal: 77/78/76/70/75 + 7 chiffres</p>
       </div>
 
       <p class="text-xs text-[#888] mb-4">Besoin d’aide ? WhatsApp: +221 77 511 12 80</p>
-      <button id="payBtn" class="w-full bg-white text-black py-3 font-semibold hover:bg-[#dddddd] transition">Confirmer la commande</button>
+      <button id="payBtn" class="w-full bg-white text-black py-3 font-semibold hover:bg-[#dddddd] transition">Payer avec PayTech</button>
     </div>
   </div>
 
@@ -490,10 +523,9 @@
     const DEFAULT_PRODUCTS = window.MANDEM_PRODUCTS || [];
     const BASE_CATEGORIES = ["Vêtements", "Chaussures", "Sacs", "Accessoires"];
     const SUBCATEGORIES = {
-      "Vêtements": ["Syna World", "Trapstar", "Cortiez", "Burberry", "NOCTA"],
-      "Chaussures": ["Burberry", "Crocs", "Prada"],
-      "Sacs": ["Trapstar", "Burberry", "Prada", "Goyard"],
-      "Accessoires": ["Syna World", "Burberry", "Lacoste", "Lunettes chrome", "Prada", "Nike pro"]
+      "Vêtements": ["Trapstar", "Corteiz", "Syna World"],
+      "Chaussures": ["Crocs"],
+      "Accessoires": ["Bracelet", "Lunette"]
     };
 
     function cloneDeep(data) {
@@ -545,6 +577,7 @@
     const enableNotifBtn = document.getElementById("enableNotifBtn");
     const notifStatus = document.getElementById("notifStatus");
     const searchInput = document.getElementById("searchInput");
+    const refreshProductsBtn = document.getElementById("refreshProductsBtn");
     const activeFilterEl = document.getElementById("activeFilter");
     const activeFilterLabel = document.getElementById("activeFilterLabel");
     const clearFilterBtn = document.getElementById("clearFilterBtn");
@@ -627,38 +660,6 @@
       if (!siteHeader) return;
       if (window.scrollY > 24) siteHeader.classList.add("nav-scrolled");
       else siteHeader.classList.remove("nav-scrolled");
-    }
-
-    function setupHeaderDropdowns() {
-      const dropdowns = document.querySelectorAll(".dropdown");
-      if (!dropdowns.length) return;
-
-      const closeAll = () => {
-        dropdowns.forEach((dd) => dd.classList.remove("open"));
-      };
-
-      document.querySelectorAll("[data-dropdown-toggle]").forEach((btn) => {
-        btn.addEventListener("click", (event) => {
-          event.stopPropagation();
-          const parent = btn.closest(".dropdown");
-          if (!parent) return;
-          const isOpen = parent.classList.contains("open");
-          closeAll();
-          if (!isOpen) parent.classList.add("open");
-        });
-      });
-
-      document.querySelectorAll(".dropdown-menu a").forEach((link) => {
-        link.addEventListener("click", () => closeAll());
-      });
-
-      document.addEventListener("click", (event) => {
-        if (!event.target.closest(".dropdown")) closeAll();
-      });
-
-      document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") closeAll();
-      });
     }
 
     function setupReveal() {
@@ -746,7 +747,7 @@
                       <button data-order="${p.id}" class="w-full max-w-[220px] bg-white text-black py-2 font-semibold hover:bg-[#e0e0e0] transition btn-soft btn-accent">Commander</button>
                     </div>
                   </div>
-                  <p class="tag-pill mt-4">${p.subcategory || p.brand || p.category || "Collection"}</p>
+                  <p class="tag-pill mt-4">${p.category || "Collection"}</p>
                   <h3 data-preview-name="${p.id}" class="mt-2 font-semibold cursor-pointer hover:text-[#ddd]">${p.name}</h3>
                   <div class="mt-3 flex items-center justify-between">
                     <span class="text-[#bdbdbd] text-sm">Prix</span>
@@ -1131,6 +1132,8 @@
     }
 
     // Paiement
+    const paymentInputs = () => document.querySelectorAll('input[name="paymentMethod"]');
+    const operatorInputs = () => document.querySelectorAll('input[name="mmOperator"]');
     const phoneWrap = document.getElementById("phoneWrap");
     const phoneInput = document.getElementById("phoneInput");
     const phoneHelp = document.getElementById("phoneHelp");
@@ -1138,11 +1141,41 @@
     const customerAddressInput = document.getElementById("customerAddressInput");
     const payBtn = document.getElementById("payBtn");
 
+    function updatePaymentUI() {
+      const method = [...paymentInputs()].find((i) => i.checked)?.value;
+      phoneWrap.style.display = method === "paytech" ? "block" : "none";
+      payBtn.textContent = method === "paytech" ? "Payer avec PayTech" : "Confirmer (Paiement à la livraison)";
+    }
+
     function validSNMobilePhone(phone) {
       const clean = phone.replace(/\s+/g, "");
       return /^(?:\+221)?(7[05678])\d{7}$/.test(clean);
     }
 
+    function selectedOperator() {
+      return [...operatorInputs()].find((i) => i.checked)?.value || "Wave";
+    }
+
+    async function initiatePayTechPayment(orderRef) {
+      const response = await fetch(`${API_BASE}/api/paytech/init`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ orderRef })
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(errorText || "Erreur API PayTech");
+      }
+
+      const data = await response.json();
+      const redirectUrl = data.redirect_url || data.payment_url || data.url;
+      if (!redirectUrl) {
+        throw new Error("URL de redirection PayTech introuvable");
+      }
+
+      return redirectUrl;
+    }
 
     enableNotifBtn.addEventListener("click", async () => {
       if (!("Notification" in window)) return showToast("Navigateur non compatible");
@@ -1171,6 +1204,7 @@
       if (!cart.length) return alert("Votre panier est vide.");
       checkoutModal.classList.remove("hidden");
       checkoutModal.classList.add("flex");
+      updatePaymentUI();
     });
 
     document.getElementById("closeCheckout").addEventListener("click", () => {
@@ -1179,21 +1213,26 @@
     });
 
     document.addEventListener("change", (e) => {
-      if (e.target && e.target.id === "phoneInput") {
-        phoneHelp.textContent = "Format Sénégal: 77/78/76/70/75 + 7 chiffres";
+      if (e.target.name === "paymentMethod") updatePaymentUI();
+      if (e.target.name === "mmOperator") {
+        const operator = selectedOperator();
+        phoneHelp.textContent = `Paiement ${operator} : numéro sénégalais requis (77/78/76/70/75 + 7 chiffres).`;
       }
     });
 
     payBtn.addEventListener("click", async () => {
+      const method = [...paymentInputs()].find((i) => i.checked)?.value;
       const orderItems = cart.map((item) => ({ ...item }));
       const orderPhone = phoneInput.value.trim();
       const customerName = customerNameInput.value.trim();
       const customerAddress = customerAddressInput.value.trim();
-      const paymentLabel = "Paiement à la livraison";
+      let paymentLabel = "Paiement à la livraison";
+      let operator = "";
 
       if (!customerName) return alert("Nom complet obligatoire.");
       if (!customerAddress) return alert("Adresse de livraison obligatoire.");
       if (!validSNMobilePhone(phoneInput.value)) return alert("Numéro invalide. Ex: 77 123 45 67");
+      if (method === "paytech") operator = selectedOperator();
 
       payBtn.disabled = true;
       payBtn.classList.add("opacity-70", "cursor-not-allowed");
@@ -1201,7 +1240,8 @@
       try {
         const localOrder = {
           id: generateOrderRef(),
-          paymentMethod: paymentLabel,
+          paymentMethod: method === "paytech" ? "PayTech" : paymentLabel,
+          operator,
           phone: orderPhone,
           customerName,
           customerAddress,
@@ -1209,10 +1249,73 @@
           total: orderItems.reduce((sum, item) => sum + (item.price * item.qty), 0)
         };
 
+        if (!USE_BACKEND) {
+          if (method === "paytech") {
+            sendOrderToWhatsApp({ ...localOrder, paymentMethod: "PayTech (validation WhatsApp)" });
+            pushBrowserNotification(localOrder);
+            showToast(`Commande ${localOrder.id} envoyée sur WhatsApp`);
+            alert("Mode Drop: PayTech API indisponible. Validation manuelle via WhatsApp.");
+          } else {
+            alert("Commande confirmée. Paiement à la livraison.");
+            sendOrderToWhatsApp(localOrder);
+            pushBrowserNotification(localOrder);
+            showToast(`Commande ${localOrder.id} reçue`);
+          }
+
+          cart = [];
+          persistCart();
+          checkoutModal.classList.add("hidden");
+          checkoutModal.classList.remove("flex");
+          closeCart();
+          return;
+        }
+
+        const orderResponse = await fetch(`${API_BASE}/api/orders`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            paymentMethod: method === "paytech" ? "PayTech" : paymentLabel,
+            operator,
+            phone: orderPhone,
+            customerName,
+            customerAddress,
+            customerEmail: "",
+            items: orderItems
+          })
+        });
+
+        if (!orderResponse.ok) {
+          const err = await orderResponse.text();
+          throw new Error(err || "Création de commande impossible");
+        }
+
+        const created = await orderResponse.json();
+        const order = {
+          id: created.orderRef,
+          paymentMethod: method === "paytech" ? "PayTech" : paymentLabel,
+          operator,
+          phone: orderPhone,
+          customerName,
+          customerAddress,
+          items: orderItems,
+          total: created.total
+        };
+
+        if (method === "paytech") {
+          const redirectUrl = await initiatePayTechPayment(created.orderRef);
+          sendOrderToWhatsApp({ ...order, paymentMethod: "PayTech (initié)" });
+          pushBrowserNotification({ ...order, paymentMethod: "PayTech (initié)" });
+          showToast(`Commande ${order.id} créée, redirection PayTech...`);
+          setTimeout(() => {
+            window.location.href = redirectUrl;
+          }, 700);
+          return;
+        }
+
         alert("Commande confirmée. Paiement à la livraison.");
-        sendOrderToWhatsApp(localOrder);
-        pushBrowserNotification(localOrder);
-        showToast(`Commande ${localOrder.id} reçue`);
+        sendOrderToWhatsApp(order);
+        pushBrowserNotification(order);
+        showToast(`Commande ${order.id} reçue`);
         cart = [];
         persistCart();
         checkoutModal.classList.add("hidden");
@@ -1278,6 +1381,28 @@
       });
     }
 
+    if (refreshProductsBtn) {
+      refreshProductsBtn.addEventListener("click", async () => {
+        refreshProductsBtn.disabled = true;
+        refreshProductsBtn.classList.add("opacity-60", "cursor-not-allowed");
+        try {
+          const jsonProducts = await fetchProductsFromJson();
+          if (jsonProducts.length) {
+            products = jsonProducts;
+            persistProductsLocalOnly();
+            renderProducts();
+            setupReveal();
+          } else {
+            showToast("Aucun produit trouvé.");
+          }
+        } catch {
+          showToast("Impossible de recharger les produits.");
+        } finally {
+          refreshProductsBtn.disabled = false;
+          refreshProductsBtn.classList.remove("opacity-60", "cursor-not-allowed");
+        }
+      });
+    }
 
     logoTrigger.addEventListener("click", (event) => {
       event.preventDefault();
@@ -1285,7 +1410,7 @@
     });
 
     // Coming soon toggle (set to false to show the shop)
-    const COMING_SOON_ENABLED = false;
+    const COMING_SOON_ENABLED = true;
     const COMING_SOON_DAYS = 60;
 
     function startComingSoonCountdown() {
@@ -1329,7 +1454,6 @@
 
     startComingSoonCountdown();
     updateActiveFilterUi();
-    setupHeaderDropdowns();
     const comingSoonLogo = document.getElementById("comingSoonLogo");
     const comingSoonLogoFallback = document.getElementById("comingSoonLogoFallback");
     if (comingSoonLogo) {
