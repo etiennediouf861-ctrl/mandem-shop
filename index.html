@@ -190,21 +190,24 @@
             <a href="#sacs" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Sacs" data-value="Sacs">Sacs</a>
           </div>
         </div>
-        <div class="relative group">
-          <button class="hover:text-white flex items-center gap-1">Accessoires ▾</button>
-          <div class="absolute left-0 mt-3 w-52 border border-[#333] bg-black/95 backdrop-blur p-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition">
-            <a href="#accessoires" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Accessoires" data-value="Montres">Montres</a>
-            <a href="#accessoires" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Accessoires" data-value="Chapeaux">Chapeaux</a>
-            <a href="#accessoires" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Accessoires" data-value="Lunettes">Lunettes</a>
-          </div>
-        </div>
-        <a href="#contact" class="hover:text-white">Contact</a>
+        <!-- Accessoires moved to the right-side header for desktop -->
       </nav>
       <a id="logoTrigger" href="#accueil" class="absolute left-1/2 -translate-x-1/2 flex items-center">
       <video class="h-16 md:h-20 w-auto max-w-[220px] md:max-w-[280px] object-contain logo-float" autoplay muted loop playsinline preload="metadata" aria-label="Logo MANDEM SHOP">
           <source src="images/logo.mp4?v=20260520b" type="video/mp4">
         </video>
       </a>
+      <div class="hidden md:flex items-center gap-4 text-xs uppercase tracking-widest text-[#cccccc]">
+        <div class="relative group">
+          <button class="hover:text-white flex items-center gap-1">Accessoires ▾</button>
+          <div class="absolute right-0 mt-3 w-52 border border-[#333] bg-black/95 backdrop-blur p-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition">
+            <a href="#accessoires" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Accessoires" data-value="Montres">Montres</a>
+            <a href="#accessoires" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Accessoires" data-value="Chapeaux">Chapeaux</a>
+            <a href="#accessoires" class="block py-1 hover:text-white" data-filter="subcategory" data-category="Accessoires" data-value="Lunettes">Lunettes</a>
+          </div>
+        </div>
+        <a href="#contact" class="hover:text-white">Contact</a>
+      </div>
       <button id="openCartBtn" class="relative border border-[#333] p-2 hover:bg-white hover:text-black transition btn-soft" aria-label="Ouvrir le panier">
         <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current" aria-hidden="true">
           <path d="M7 6h-2l-1 2v2h2l2.2 6.5c.2.6.8 1 1.4 1h8.8c.6 0 1.2-.4 1.4-1l2.2-6.5h2V8l-1-2h-2M7 6h10l1 2H6l1-2Zm2.4 12h8.2l1.6-5H7.8l1.6 5ZM9 20a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm8 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/>
@@ -271,59 +274,6 @@
       <a data-mobile-link href="#contact" class="hover:text-white">Contact</a>
     </nav>
   </aside>
-
-  <!-- Coming Soon -->
-  <section id="comingSoon" class="fixed inset-0 z-[120] hidden items-center justify-center bg-black px-4 py-8">
-    <div class="absolute inset-0 bg-black/85"></div>
-    <div class="relative w-full max-w-3xl overflow-hidden rounded-[1.75rem] border border-white/10 bg-black shadow-2xl">
-      <img src="images/bg-mandem.png" alt="" class="absolute inset-0 h-full w-full object-cover opacity-25 scale-110" />
-      <div class="absolute inset-0 bg-black/60"></div>
-      <div class="relative flex min-h-[78vh] flex-col items-center justify-center px-6 py-10 text-center md:min-h-[620px]">
-        <div class="mb-5 flex h-28 w-28 md:h-32 md:w-32 items-center justify-center bg-black">
-          <video id="comingSoonLogo" class="h-full w-full object-contain" autoplay muted loop playsinline preload="auto" aria-label="Logo MANDEM SHOP">
-            <source src="images/logo.mp4" type="video/mp4">
-          </video>
-        </div>
-        <p class="label-uppercase text-[#d1d1d1] mb-3">Bientôt disponible</p>
-        <h1 class="title-font text-3xl md:text-5xl">MANDEM SHOP</h1>
-        <p class="text-[#dddddd] mt-4 max-w-xl text-sm md:text-base">Le site arrive. Restez connectés.</p>
-
-        <div class="mt-8 grid w-full max-w-2xl grid-cols-4 gap-2 md:gap-4 text-white">
-          <div class="border border-white/20 px-2 py-4 md:px-4">
-            <div id="csDays" class="text-2xl md:text-3xl font-black">30</div>
-            <div class="text-[9px] md:text-[10px] uppercase tracking-[0.25em] md:tracking-[0.3em] text-[#c7c7c7]">Jours</div>
-          </div>
-          <div class="border border-white/20 px-2 py-4 md:px-4">
-            <div id="csHours" class="text-2xl md:text-3xl font-black">00</div>
-            <div class="text-[9px] md:text-[10px] uppercase tracking-[0.25em] md:tracking-[0.3em] text-[#c7c7c7]">Heures</div>
-          </div>
-          <div class="border border-white/20 px-2 py-4 md:px-4">
-            <div id="csMinutes" class="text-2xl md:text-3xl font-black">00</div>
-            <div class="text-[9px] md:text-[10px] uppercase tracking-[0.25em] md:tracking-[0.3em] text-[#c7c7c7]">Minutes</div>
-          </div>
-          <div class="border border-white/20 px-2 py-4 md:px-4">
-            <div id="csSeconds" class="text-2xl md:text-3xl font-black">00</div>
-            <div class="text-[9px] md:text-[10px] uppercase tracking-[0.25em] md:tracking-[0.3em] text-[#c7c7c7]">Secondes</div>
-          </div>
-        </div>
-
-        <div class="mt-10 flex items-center justify-center gap-3 md:gap-5 text-[#cccccc]">
-          <a href="https://www.instagram.com/mandem.sn?igsh=MTk4YWN0Z2ZsN2Vjdw%3D%3D" target="_blank" rel="noopener noreferrer" class="border border-white/20 p-3 hover:bg-white transition">
-            <img src="images/ico-instagram.svg" alt="Instagram" class="h-5 w-5" />
-          </a>
-          <a href="https://www.tiktok.com/@mandem.sn0" target="_blank" rel="noopener noreferrer" class="border border-white/20 p-3 hover:bg-white transition">
-            <img src="images/ico-tiktok.svg" alt="TikTok" class="h-5 w-5" />
-          </a>
-          <a href="https://wa.me/221775111280" target="_blank" rel="noopener noreferrer" class="border border-white/20 p-3 hover:bg-white transition">
-            <img src="images/ico-whatsapp.svg" alt="WhatsApp" class="h-5 w-5" />
-          </a>
-          <a href="https://www.snapchat.com/@mandemsn?invite_id=x2LZ_cq7&locale=fr_SN&share_id=j2XewuLtRl6bPHy4KRgi6g&sid=10c63cf73ad4486d9709d65825e67fac&locale=en-SN" target="_blank" rel="noopener noreferrer" class="border border-white/20 p-3 hover:bg-white transition">
-            <img src="images/ico-snapchat.svg" alt="Snapchat" class="h-5 w-5" />
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <main id="siteContent" class="pt-16">
     <!-- Hero -->
@@ -1412,65 +1362,7 @@
       window.location.hash = "accueil";
     });
 
-    // Coming soon toggle (set to false to show the shop)
-    const COMING_SOON_ENABLED = true;
-    const COMING_SOON_DAYS = 30;
-
-    function startComingSoonCountdown() {
-      const comingSoon = document.getElementById("comingSoon");
-      const siteContent = document.getElementById("siteContent");
-      if (!COMING_SOON_ENABLED) {
-        comingSoon.classList.add("hidden");
-        if (siteContent) siteContent.classList.remove("blur-sm");
-        return;
-      }
-
-      if (siteContent) siteContent.classList.remove("blur-sm");
-      comingSoon.classList.remove("hidden");
-      comingSoon.classList.add("flex");
-
-      const start = Date.now();
-      const duration = COMING_SOON_DAYS * 24 * 60 * 60 * 1000;
-      const end = start + duration;
-
-      const daysEl = document.getElementById("csDays");
-      const hoursEl = document.getElementById("csHours");
-      const minutesEl = document.getElementById("csMinutes");
-      const secondsEl = document.getElementById("csSeconds");
-
-      const tick = () => {
-        const now = Date.now();
-        const remaining = Math.max(0, end - now);
-        const days = Math.floor(remaining / (24 * 60 * 60 * 1000));
-        const hours = Math.floor((remaining / (60 * 60 * 1000)) % 24);
-        const minutes = Math.floor((remaining / (60 * 1000)) % 60);
-        const seconds = Math.floor((remaining / 1000) % 60);
-
-        daysEl.textContent = String(days).padStart(2, "0");
-        hoursEl.textContent = String(hours).padStart(2, "0");
-        minutesEl.textContent = String(minutes).padStart(2, "0");
-        secondsEl.textContent = String(seconds).padStart(2, "0");
-      };
-      tick();
-      setInterval(tick, 1000);
-    }
-
-    startComingSoonCountdown();
     updateActiveFilterUi();
-    const comingSoonLogo = document.getElementById("comingSoonLogo");
-    if (comingSoonLogo) {
-      const tryPlayLogo = () => {
-        comingSoonLogo.muted = true;
-        comingSoonLogo.playsInline = true;
-        comingSoonLogo.loop = true;
-        comingSoonLogo.play().catch(() => {});
-      };
-      comingSoonLogo.addEventListener("ended", () => {
-        comingSoonLogo.currentTime = 0;
-        tryPlayLogo();
-      });
-      tryPlayLogo();
-    }
     initApp();
     trackPageView();
     handleHeaderScroll();
