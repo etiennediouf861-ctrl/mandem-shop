@@ -278,9 +278,8 @@
     <div class="relative w-full h-full flex flex-col items-center justify-center px-6 text-center">
       <div class="mb-6">
         <video id="comingSoonLogo" class="h-36 md:h-44 w-auto object-contain" autoplay muted loop playsinline preload="auto" aria-label="Logo MANDEM SHOP">
-          <source src="images/logo.mp4?v=20260520b" type="video/mp4">
+          <source src="images/logo.mp4" type="video/mp4">
         </video>
-        <img id="comingSoonLogoFallback" src="images/bg-mandem.png" alt="Logo MANDEM SHOP" class="hidden h-36 md:h-44 w-auto object-contain" />
       </div>
       <p class="label-uppercase text-[#bbbbbb] mb-3">Bientôt disponible</p>
       <h1 class="title-font text-3xl md:text-5xl lg:text-6xl">MANDEM SHOP</h1>
@@ -1455,7 +1454,6 @@
     startComingSoonCountdown();
     updateActiveFilterUi();
     const comingSoonLogo = document.getElementById("comingSoonLogo");
-    const comingSoonLogoFallback = document.getElementById("comingSoonLogoFallback");
     if (comingSoonLogo) {
       const tryPlayLogo = () => {
         comingSoonLogo.muted = true;
@@ -1467,12 +1465,6 @@
         comingSoonLogo.currentTime = 0;
         tryPlayLogo();
       });
-      comingSoonLogo.addEventListener("error", () => {
-        if (comingSoonLogoFallback) {
-          comingSoonLogo.classList.add("hidden");
-          comingSoonLogoFallback.classList.remove("hidden");
-        }
-      });
       tryPlayLogo();
     }
     initApp();
@@ -1483,17 +1475,16 @@
     window.addEventListener("scroll", handleHeaderScroll, { passive: true });
   </script>
   <script>
-    // Enregistrement service worker PWA (scope racine)
+    // Le service worker gardait parfois une ancienne version sur mobile.
+    // On le retire pour que le site charge toujours la version Netlify actuelle.
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
-        navigator.serviceWorker
-          .register("/service-worker.js", { scope: "/" })
-          .then((registration) => {
-            console.log("Service Worker actif:", registration.scope);
-          })
-          .catch((error) => {
-            console.log("Echec Service Worker:", error);
-          });
+        navigator.serviceWorker.getRegistrations().then((registrations) => {
+          registrations.forEach((registration) => registration.unregister());
+        });
+        if (window.caches) {
+          caches.keys().then((keys) => keys.forEach((key) => caches.delete(key)));
+        }
       });
     }
   </script>
