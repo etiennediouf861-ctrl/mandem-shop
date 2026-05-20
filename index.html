@@ -647,9 +647,21 @@
     function renderProducts() {
       const normalizedQuery = searchQuery.trim().toLowerCase();
       const categories = getCategories();
-      const filteredCategories = activeFilter.type === "subcategory" && activeFilter.category
-        ? categories.filter((cat) => normalizeText(cat) === normalizeText(activeFilter.category))
-        : categories;
+
+      // Determine which categories to render depending on active filters.
+      let filteredCategories = categories;
+      if (activeFilter.type === "subcategory" && activeFilter.category) {
+        filteredCategories = categories.filter((cat) => normalizeText(cat) === normalizeText(activeFilter.category));
+      } else if (activeFilter.type === "category" && activeFilter.value) {
+        const val = normalizeText(activeFilter.value);
+        if (val === "nouveautes" || val === "nouveau") {
+          // Keep all categories but later only include products with badge 'Nouveau'
+          filteredCategories = categories;
+        } else {
+          filteredCategories = categories.filter((cat) => normalizeText(cat) === val);
+        }
+      }
+
       const sectionsHtml = filteredCategories.map((cat) => {
         const id = cat.toLowerCase().replace("ê", "e").replace("è", "e").replace("é", "e");
         const list = products.filter((p) => {
@@ -662,6 +674,16 @@
         const filteredList = list.filter((p) => {
           if (!activeFilter.type) return true;
           const value = normalizeText(activeFilter.value);
+
+          if (activeFilter.type === "category") {
+            const val = normalizeText(activeFilter.value);
+            if (val === "nouveautes" || val === "nouveau") {
+              return normalizeText(p.badge || "") === "nouveau";
+            }
+            // For normal category filters the 'list' already restricted by category
+            return true;
+          }
+
           if (activeFilter.type === "subcategory") {
             const sub = normalizeText(getProductSubcategory(p));
             if (sub) return sub === value;
