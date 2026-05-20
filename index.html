@@ -273,51 +273,54 @@
   </aside>
 
   <!-- Coming Soon -->
-  <section id="comingSoon" class="fixed inset-0 z-[120] hidden items-center justify-center">
-    <div class="absolute inset-0 bg-black"></div>
-    <div class="relative w-full h-full flex flex-col items-center justify-center px-6 text-center">
-      <div class="relative mb-6 h-36 md:h-44 w-60 md:w-72 flex items-center justify-center">
-        <img src="images/bg-mandem.png" alt="Logo MANDEM SHOP" class="absolute inset-0 h-full w-full object-contain opacity-90" />
-        <video id="comingSoonLogo" class="relative z-10 h-full w-full object-contain" autoplay muted loop playsinline preload="auto" aria-label="Logo MANDEM SHOP">
-          <source src="images/logo.mp4" type="video/mp4">
-        </video>
-      </div>
-      <p class="label-uppercase text-[#bbbbbb] mb-3">Bientôt disponible</p>
-      <h1 class="title-font text-3xl md:text-5xl lg:text-6xl">MANDEM SHOP</h1>
-      <p class="text-[#cccccc] mt-4 max-w-xl">Le site arrive. Restez connectés.</p>
+  <section id="comingSoon" class="fixed inset-0 z-[120] hidden items-center justify-center bg-black px-4 py-8">
+    <div class="absolute inset-0 bg-black/85"></div>
+    <div class="relative w-full max-w-3xl overflow-hidden rounded-[1.75rem] border border-white/10 bg-black shadow-2xl">
+      <img src="images/bg-mandem.png" alt="" class="absolute inset-0 h-full w-full object-cover opacity-25 scale-110" />
+      <div class="absolute inset-0 bg-black/60"></div>
+      <div class="relative flex min-h-[78vh] flex-col items-center justify-center px-6 py-10 text-center md:min-h-[620px]">
+        <div class="mb-5 flex h-28 w-28 md:h-32 md:w-32 items-center justify-center bg-black">
+          <video id="comingSoonLogo" class="h-full w-full object-contain" autoplay muted loop playsinline preload="auto" aria-label="Logo MANDEM SHOP">
+            <source src="images/logo.mp4" type="video/mp4">
+          </video>
+        </div>
+        <p class="label-uppercase text-[#d1d1d1] mb-3">Bientôt disponible</p>
+        <h1 class="title-font text-3xl md:text-5xl">MANDEM SHOP</h1>
+        <p class="text-[#dddddd] mt-4 max-w-xl text-sm md:text-base">Le site arrive. Restez connectés.</p>
 
-      <div class="mt-8 grid grid-cols-4 gap-3 text-white">
-        <div class="border border-[#333] px-4 py-3">
-          <div id="csDays" class="text-2xl font-bold">30</div>
-          <div class="text-[10px] uppercase tracking-[0.3em] text-[#aaa]">Jours</div>
+        <div class="mt-8 grid w-full max-w-2xl grid-cols-4 gap-2 md:gap-4 text-white">
+          <div class="border border-white/20 px-2 py-4 md:px-4">
+            <div id="csDays" class="text-2xl md:text-3xl font-black">30</div>
+            <div class="text-[9px] md:text-[10px] uppercase tracking-[0.25em] md:tracking-[0.3em] text-[#c7c7c7]">Jours</div>
+          </div>
+          <div class="border border-white/20 px-2 py-4 md:px-4">
+            <div id="csHours" class="text-2xl md:text-3xl font-black">00</div>
+            <div class="text-[9px] md:text-[10px] uppercase tracking-[0.25em] md:tracking-[0.3em] text-[#c7c7c7]">Heures</div>
+          </div>
+          <div class="border border-white/20 px-2 py-4 md:px-4">
+            <div id="csMinutes" class="text-2xl md:text-3xl font-black">00</div>
+            <div class="text-[9px] md:text-[10px] uppercase tracking-[0.25em] md:tracking-[0.3em] text-[#c7c7c7]">Minutes</div>
+          </div>
+          <div class="border border-white/20 px-2 py-4 md:px-4">
+            <div id="csSeconds" class="text-2xl md:text-3xl font-black">00</div>
+            <div class="text-[9px] md:text-[10px] uppercase tracking-[0.25em] md:tracking-[0.3em] text-[#c7c7c7]">Secondes</div>
+          </div>
         </div>
-        <div class="border border-[#333] px-4 py-3">
-          <div id="csHours" class="text-2xl font-bold">00</div>
-          <div class="text-[10px] uppercase tracking-[0.3em] text-[#aaa]">Heures</div>
-        </div>
-        <div class="border border-[#333] px-4 py-3">
-          <div id="csMinutes" class="text-2xl font-bold">00</div>
-          <div class="text-[10px] uppercase tracking-[0.3em] text-[#aaa]">Minutes</div>
-        </div>
-        <div class="border border-[#333] px-4 py-3">
-          <div id="csSeconds" class="text-2xl font-bold">00</div>
-          <div class="text-[10px] uppercase tracking-[0.3em] text-[#aaa]">Secondes</div>
-        </div>
-      </div>
 
-      <div class="absolute bottom-8 left-0 right-0 flex items-center justify-center gap-4 text-[#cccccc]">
-        <a href="https://www.instagram.com/mandem.sn?igsh=MTk4YWN0Z2ZsN2Vjdw%3D%3D" target="_blank" rel="noopener noreferrer" class="border border-[#333] p-3 hover:bg-white transition">
-          <img src="images/ico-instagram.svg" alt="Instagram" class="h-5 w-5" />
-        </a>
-        <a href="https://www.tiktok.com/@mandem.sn0" target="_blank" rel="noopener noreferrer" class="border border-[#333] p-3 hover:bg-white transition">
-          <img src="images/ico-tiktok.svg" alt="TikTok" class="h-5 w-5" />
-        </a>
-        <a href="https://wa.me/221775111280" target="_blank" rel="noopener noreferrer" class="border border-[#333] p-3 hover:bg-white transition">
-          <img src="images/ico-whatsapp.svg" alt="WhatsApp" class="h-5 w-5" />
-        </a>
-        <a href="https://www.snapchat.com/@mandemsn?invite_id=x2LZ_cq7&locale=fr_SN&share_id=j2XewuLtRl6bPHy4KRgi6g&sid=10c63cf73ad4486d9709d65825e67fac&locale=en-SN" target="_blank" rel="noopener noreferrer" class="border border-[#333] p-3 hover:bg-white transition">
-          <img src="images/ico-snapchat.svg" alt="Snapchat" class="h-5 w-5" />
-        </a>
+        <div class="mt-10 flex items-center justify-center gap-3 md:gap-5 text-[#cccccc]">
+          <a href="https://www.instagram.com/mandem.sn?igsh=MTk4YWN0Z2ZsN2Vjdw%3D%3D" target="_blank" rel="noopener noreferrer" class="border border-white/20 p-3 hover:bg-white transition">
+            <img src="images/ico-instagram.svg" alt="Instagram" class="h-5 w-5" />
+          </a>
+          <a href="https://www.tiktok.com/@mandem.sn0" target="_blank" rel="noopener noreferrer" class="border border-white/20 p-3 hover:bg-white transition">
+            <img src="images/ico-tiktok.svg" alt="TikTok" class="h-5 w-5" />
+          </a>
+          <a href="https://wa.me/221775111280" target="_blank" rel="noopener noreferrer" class="border border-white/20 p-3 hover:bg-white transition">
+            <img src="images/ico-whatsapp.svg" alt="WhatsApp" class="h-5 w-5" />
+          </a>
+          <a href="https://www.snapchat.com/@mandemsn?invite_id=x2LZ_cq7&locale=fr_SN&share_id=j2XewuLtRl6bPHy4KRgi6g&sid=10c63cf73ad4486d9709d65825e67fac&locale=en-SN" target="_blank" rel="noopener noreferrer" class="border border-white/20 p-3 hover:bg-white transition">
+            <img src="images/ico-snapchat.svg" alt="Snapchat" class="h-5 w-5" />
+          </a>
+        </div>
       </div>
     </div>
   </section>
