@@ -276,8 +276,9 @@
   <section id="comingSoon" class="fixed inset-0 z-[120] hidden items-center justify-center">
     <div class="absolute inset-0 bg-black"></div>
     <div class="relative w-full h-full flex flex-col items-center justify-center px-6 text-center">
-      <div class="mb-6">
-        <video id="comingSoonLogo" class="h-36 md:h-44 w-auto object-contain" autoplay muted loop playsinline preload="auto" aria-label="Logo MANDEM SHOP">
+      <div class="relative mb-6 h-36 md:h-44 w-60 md:w-72 flex items-center justify-center">
+        <img src="images/bg-mandem.png" alt="Logo MANDEM SHOP" class="absolute inset-0 h-full w-full object-contain opacity-90" />
+        <video id="comingSoonLogo" class="relative z-10 h-full w-full object-contain" autoplay muted loop playsinline preload="auto" aria-label="Logo MANDEM SHOP">
           <source src="images/logo.mp4" type="video/mp4">
         </video>
       </div>
