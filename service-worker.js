@@ -1,13 +1,10 @@
 // MANDEM SHOP Service Worker (PWA root scope)
 // Cache statique + API network-first + fallback offline + push basique.
 
-const CACHE_VERSION = "mandem-cache-v1";
+const CACHE_VERSION = "mandem-cache-v2";
 const OFFLINE_URL = "/offline.html";
 const STATIC_ASSETS = [
-  "/",
-  "/index.html",
   "/commande.html",
-  "/admin.html",
   "/offline.html",
   "/manifest.json",
   "/style.css",
