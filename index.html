@@ -66,6 +66,18 @@
     .label-uppercase { font-size: 10px; letter-spacing: .35em; text-transform: uppercase; font-weight: 800; }
     .logo-float { mix-blend-mode: screen; }
     .glass-panel { background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); }
+    @keyframes rotate360 {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .rotate-360 {
+      animation: rotate360 28s linear infinite;
+      transform-origin: center center;
+      will-change: transform;
+      backface-visibility: hidden;
+      transform-style: preserve-3d;
+      display: block;
+    }
     @keyframes bounceSlow {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-6px); }
@@ -193,7 +205,8 @@
         <!-- Accessoires moved to the right-side header for desktop -->
       </nav>
       <a id="logoTrigger" href="#accueil" class="absolute left-1/2 -translate-x-1/2 flex items-center">
-      <video class="h-16 md:h-20 w-auto max-w-[220px] md:max-w-[280px] object-contain logo-float" autoplay muted loop playsinline preload="metadata" aria-label="Logo MANDEM SHOP">
+      <video class="h-16 md:h-20 w-auto max-w-[220px] md:max-w-[280px] object-contain logo-float rotate-360" autoplay muted loop playsinline webkit-playsinline x5-playsinline preload="auto" aria-label="Logo MANDEM SHOP">
+          <source src="images/logo.webm" type="video/webm">
           <source src="images/logo.mp4?v=20260520b" type="video/mp4">
         </video>
       </a>
@@ -276,12 +289,14 @@
   </aside>
 
   <section id="comingSoon" class="fixed inset-0 z-[120] flex items-center justify-center bg-black text-white">
-    <video autoplay muted loop playsinline preload="auto" class="absolute inset-0 h-full w-full object-cover opacity-10">
+    <video autoplay muted loop playsinline webkit-playsinline x5-playsinline preload="auto" class="absolute inset-0 h-full w-full object-cover opacity-10">
+      <source src="images/logo.webm" type="video/webm">
       <source src="images/logo.mp4?v=20260520b" type="video/mp4">
     </video>
     <div class="relative z-10 flex w-full max-w-4xl flex-col items-center gap-10 px-6 py-12 text-center">
       <div class="relative flex h-40 w-40 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-black shadow-2xl sm:h-48 sm:w-48">
-        <video id="comingSoonLogoVideo" autoplay muted loop playsinline preload="auto" class="absolute inset-0 h-full w-full object-contain">
+        <video id="comingSoonLogoVideo" autoplay muted loop playsinline webkit-playsinline x5-playsinline preload="auto" class="absolute inset-0 h-full w-full object-contain rotate-360">
+          <source src="images/logo.webm" type="video/webm">
           <source src="images/logo.mp4?v=20260520b" type="video/mp4">
         </video>
         <div class="absolute inset-0 bg-black/80"></div>
@@ -1441,17 +1456,26 @@
       window.location.hash = "accueil";
     });
 
-    const comingSoonEl = document.getElementById("comingSoon");
     const comingSoonLogoVideo = document.getElementById("comingSoonLogoVideo");
     const csDays = document.getElementById("csDays");
     const csHours = document.getElementById("csHours");
     const csMinutes = document.getElementById("csMinutes");
     const csSeconds = document.getElementById("csSeconds");
 
-    const end = Date.now() + 30 * 24 * 60 * 60 * 1000;
+    const COMING_SOON_END_KEY = "mandemComingSoonEnd";
+    const savedEnd = Number(localStorage.getItem(COMING_SOON_END_KEY));
+    const now = Date.now();
+    const end = Number.isFinite(savedEnd)
+      ? savedEnd
+      : now + 30 * 24 * 60 * 60 * 1000;
+
+    if (!Number.isFinite(savedEnd)) {
+      localStorage.setItem(COMING_SOON_END_KEY, String(end));
+    }
+
     const tick = () => {
-      const now = Date.now();
-      const remaining = Math.max(0, end - now);
+      const current = Date.now();
+      const remaining = Math.max(0, end - current);
       const days = Math.floor(remaining / (24 * 60 * 60 * 1000));
       const hours = Math.floor((remaining / (60 * 60 * 1000)) % 24);
       const minutes = Math.floor((remaining / (60 * 1000)) % 60);
@@ -1469,7 +1493,33 @@
       comingSoonLogoVideo.muted = true;
       comingSoonLogoVideo.playsInline = true;
       comingSoonLogoVideo.loop = true;
-      comingSoonLogoVideo.play().catch(() => {});
+
+      const tryPlayVideo = () => {
+        const playPromise = comingSoonLogoVideo.play();
+        if (playPromise && typeof playPromise.catch === "function") {
+          playPromise.catch(() => {
+            /* ignore autoplay rejection: keep trying */
+          });
+        }
+      };
+
+      const retryPlay = (attempt = 1) => {
+        if (attempt > 8) return;
+        tryPlayVideo();
+        setTimeout(() => retryPlay(attempt + 1), 500);
+      };
+
+      comingSoonLogoVideo.addEventListener("pause", () => {
+        if (!comingSoonLogoVideo.ended) {
+          tryPlayVideo();
+        }
+      });
+      comingSoonLogoVideo.addEventListener("ended", tryPlayVideo);
+      comingSoonLogoVideo.addEventListener("stalled", tryPlayVideo);
+      comingSoonLogoVideo.addEventListener("loadeddata", tryPlayVideo, { once: true });
+
+      tryPlayVideo();
+      setTimeout(() => retryPlay(1), 500);
     }
 
     updateActiveFilterUi();
