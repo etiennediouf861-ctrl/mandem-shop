@@ -275,6 +275,43 @@
     </nav>
   </aside>
 
+  <section id="comingSoon" class="fixed inset-0 z-[120] flex items-center justify-center bg-black text-white">
+    <video autoplay muted loop playsinline preload="auto" class="absolute inset-0 h-full w-full object-cover opacity-10">
+      <source src="images/logo.mp4?v=20260520b" type="video/mp4">
+    </video>
+    <div class="relative z-10 flex w-full max-w-4xl flex-col items-center gap-10 px-6 py-12 text-center">
+      <div class="relative flex h-40 w-40 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-black shadow-2xl sm:h-48 sm:w-48">
+        <video autoplay muted loop playsinline preload="auto" class="absolute inset-0 h-full w-full object-contain">
+          <source src="images/logo.mp4?v=20260520b" type="video/mp4">
+        </video>
+        <div class="absolute inset-0 bg-black/80"></div>
+        <span class="relative text-xs uppercase tracking-[0.35em] text-[#dadada]">MANDEM SHOP</span>
+      </div>
+      <div class="space-y-3">
+        <p class="text-sm uppercase tracking-[0.45em] text-[#999]">Bientôt disponible</p>
+        <h1 class="text-4xl font-black uppercase tracking-tight sm:text-6xl">Coming Soon</h1>
+      </div>
+      <div class="grid w-full grid-cols-2 gap-4 sm:grid-cols-4">
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+          <div id="csDays" class="text-4xl font-black">30</div>
+          <div class="text-xs uppercase tracking-[0.35em] text-[#999]">Jours</div>
+        </div>
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+          <div id="csHours" class="text-4xl font-black">00</div>
+          <div class="text-xs uppercase tracking-[0.35em] text-[#999]">Heures</div>
+        </div>
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+          <div id="csMinutes" class="text-4xl font-black">00</div>
+          <div class="text-xs uppercase tracking-[0.35em] text-[#999]">Minutes</div>
+        </div>
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+          <div id="csSeconds" class="text-4xl font-black">00</div>
+          <div class="text-xs uppercase tracking-[0.35em] text-[#999]">Secondes</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <main id="siteContent" class="pt-16">
     <!-- Hero -->
     <section id="accueil" class="relative min-h-[70vh] md:min-h-[85vh] flex items-center">
@@ -1383,6 +1420,29 @@
       event.preventDefault();
       window.location.hash = "accueil";
     });
+
+    const comingSoonEl = document.getElementById("comingSoon");
+    const csDays = document.getElementById("csDays");
+    const csHours = document.getElementById("csHours");
+    const csMinutes = document.getElementById("csMinutes");
+    const csSeconds = document.getElementById("csSeconds");
+
+    const end = Date.now() + 30 * 24 * 60 * 60 * 1000;
+    const tick = () => {
+      const now = Date.now();
+      const remaining = Math.max(0, end - now);
+      const days = Math.floor(remaining / (24 * 60 * 60 * 1000));
+      const hours = Math.floor((remaining / (60 * 60 * 1000)) % 24);
+      const minutes = Math.floor((remaining / (60 * 1000)) % 60);
+      const seconds = Math.floor((remaining / 1000) % 60);
+
+      if (csDays) csDays.textContent = String(days).padStart(2, "0");
+      if (csHours) csHours.textContent = String(hours).padStart(2, "0");
+      if (csMinutes) csMinutes.textContent = String(minutes).padStart(2, "0");
+      if (csSeconds) csSeconds.textContent = String(seconds).padStart(2, "0");
+    };
+    tick();
+    setInterval(tick, 1000);
 
     updateActiveFilterUi();
     initApp();
