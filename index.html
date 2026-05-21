@@ -281,10 +281,9 @@
     </video>
     <div class="relative z-10 flex w-full max-w-4xl flex-col items-center gap-10 px-6 py-12 text-center">
       <div class="relative flex h-40 w-40 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-black shadow-2xl sm:h-48 sm:w-48">
-        <video id="comingSoonLogoVideo" autoplay muted loop playsinline preload="auto" poster="images/wave-logo.svg" class="absolute inset-0 h-full w-full object-contain">
+        <video id="comingSoonLogoVideo" autoplay muted loop playsinline preload="auto" class="absolute inset-0 h-full w-full object-contain">
           <source src="images/logo.mp4?v=20260520b" type="video/mp4">
         </video>
-        <img id="comingSoonFallback" src="images/wave-logo.svg" alt="Logo MANDEM SHOP" class="absolute inset-0 m-auto hidden h-24 w-24 object-contain" />
         <div class="absolute inset-0 bg-black/80"></div>
       </div>
       <div class="grid w-full grid-cols-2 gap-4 sm:grid-cols-4">
@@ -1419,7 +1418,6 @@
 
     const comingSoonEl = document.getElementById("comingSoon");
     const comingSoonLogoVideo = document.getElementById("comingSoonLogoVideo");
-    const comingSoonFallback = document.getElementById("comingSoonFallback");
     const csDays = document.getElementById("csDays");
     const csHours = document.getElementById("csHours");
     const csMinutes = document.getElementById("csMinutes");
@@ -1443,15 +1441,10 @@
     setInterval(tick, 1000);
 
     if (comingSoonLogoVideo) {
-      const showFallback = () => {
-        if (comingSoonFallback) comingSoonFallback.classList.remove("hidden");
-      };
-
       comingSoonLogoVideo.muted = true;
       comingSoonLogoVideo.playsInline = true;
       comingSoonLogoVideo.loop = true;
-      comingSoonLogoVideo.play().catch(showFallback);
-      comingSoonLogoVideo.addEventListener("error", showFallback);
+      comingSoonLogoVideo.play().catch(() => {});
     }
 
     updateActiveFilterUi();
